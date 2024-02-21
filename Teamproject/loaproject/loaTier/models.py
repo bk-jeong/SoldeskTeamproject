@@ -1,3 +1,24 @@
 from django.db import models
 
-# Create your models here.
+# class clientInfo(models.Model):
+#     """A typical class defining a model, derived from the Model class."""
+
+
+class Tier(models.Model):
+    """A typical class defining a model, derived from the Model class."""
+
+    # Fields
+    # r_id = models.ForeignKey("Raid", on_delete=models.CASCADE)
+    tier1 = models.TextField()
+    tier2 = models.TextField()
+    tier3 = models.TextField()
+    tier4 = models.TextField()
+    tier5 = models.TextField()
+    tierout = models.TextField()
+
+
+class Raid(models.Model):
+    """A typical class defining a model, derived from the Model class."""
+
+    # Fields
+    name = models.CharField(max_length=10)
