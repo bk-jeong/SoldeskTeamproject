@@ -10,17 +10,16 @@
   
   <body>
     <header>
-      <h1> menu</h1>
-      <a href="/">home</a>
+      {% include "header.html" %}
     </header>
    
     <div>
       <div class="select">
-        <input type="radio" id="select1" name="shop" checked="checked"><label for="select1"><img src="{% static "imgdata/zkaps.png" %}" width="50px" height="50px" draggable="false" /></label>
-        <input type="radio" id="select2" name="shop"><label for="select2"><img src="{% static "imgdata/dlffl.png" %}" width="50px" height="50px" draggable="false" /></label>
-        <input type="radio" id="select3" name="shop"><label for="select3"><img src="{% static "imgdata/dpzl.png" %}" width="50px" height="50px" draggable="false" /></label>
+        {%include "selector.html"%}
       </div>
+
        <th><button id="send" align="center">전송</button></th>
+
       <div id="main">
         <div border="1" class="maintb" align="center" id="icon">
           <div class="lain">
@@ -47,35 +46,14 @@
       </div>
       <div border="1" class="maintb">
         <div id="seticon" class="renkin">
-          {% comment %} 
-          <div class="imgtag" id="1img" draggable="true">
-            <img src="{% static "imgdata/1img.webp" %}" width="50px" height="50px" draggable="false" />
-          </div>
-          <div class="imgtag" id="2img" draggable="true">
-            <img src="{% static "imgdata/2img.webp" %}" width="50px" height="50px" draggable="false" />
-          </div>
-          <div class="imgtag" id="3img" draggable="true">
-            <img src="{% static "imgdata/3img.webp" %}" width="50px" height="50px" draggable="false" />
-          </div>
-          <div class="imgtag" id="4img" draggable="true">
-            <img src="{% static "imgdata/4img.webp" %}" width="50px" height="50px" draggable="false" />
-          </div>
-          <div class="imgtag" id="5img" draggable="true">
-            <img src="{% static "imgdata/5img.webp" %}"  width="50px" height="50px" draggable="false" />
-          </div>
-          <div class="imgtag" id="6img" draggable="true">
-            <img src="{% static "imgdata/6img.webp" %}"  width="50px" height="50px" draggable="false" />
+
+          {% comment %} <div class="imgtag" id="1img" draggable="true">
+            <img src="{% static "imgdata/01_bigi.webp" %}" width="50px" height="50px" draggable="false" />
           </div> {% endcomment %}
           
-          
-          {% comment %} {% for i in "x"|rjust:"52" %}
-             <div class="imgtag" draggable="true">
-              <img src="{% get_static_prefix %}imgdata/{{ i }}img.webp" width="50px" height="50px" draggable="false" />
-             </div>
-          {% endfor %} {% endcomment %}
-             {% for i in "x"|rjust:"52" %}
-              <div class="imgtag" draggable="true" id="{{ forloop.counter }}">
-                <img src="{% get_static_prefix %}imgdata/{{ forloop.counter }}img.webp" width="50px" height="50px" draggable="false" />
+             {% for i in engv %}
+              <div class="imgtag" draggable="true" id="{{ i }}">
+                <img src="{% get_static_prefix %}imgdata/{{i}}.webp" width="50px" height="50px" draggable="false" />
               </div>
              {% endfor %}
           
