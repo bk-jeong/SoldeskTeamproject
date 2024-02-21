@@ -10,38 +10,12 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-#seticon {
-  width: 500px;
-  height: 1500px;
-  border: solid 2px black;
-
-  margin-right: auto;
-  background-color: slategray;
-  display: flex;
-  flex-direction: row;
-}
-
-.renkin {
-  display: flex;
-  flex: 1;
-  width: 800px;
-  min-height: 100px;
-  border: solid 2px black;
-  background-color: slategray;
-
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
 #main {
   display: flex;
   float: left;
   margin-left: 150px;
-  width: 800px;
-  flex-direction: row;
+  width: 1000px;
 }
-
 body {
   background-color: azure;
   user-select: none;
@@ -53,6 +27,28 @@ body {
 }
 .rank {
   min-height: 100px;
+}
+
+#seticon {
+  width: 300px;
+  height: 1500px;
+  border: solid 2px black;
+
+  margin-right: 0;
+  background-color: slategray;
+  display: flex;
+  flex-direction: row;
+}
+
+.renkin {
+  flex: 1;
+  width: 1000px;
+  min-height: 100px;
+  border: solid 2px black;
+  background-color: slategray;
+
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 #Aclass {
@@ -169,26 +165,12 @@ header {
   color: #fff;
 }
 
-#select1:hover {
-  background-color: #6682ff;
-  box-shadow: 0px 0px 0px 5px rgba(192, 194, 250, 0.7);
-}
+#viewAllResult {
+  display: inline-block;
+  position: fixed;
+  right: 200px;
+  top: 110px;
 
-#select2:hover {
-  background-color: #47c83e;
-  box-shadow: 0px 0px 0px 5px rgba(192, 194, 250, 0.7);
-}
-
-#select3:hover {
-  background-color: #ffb2f5;
-  box-shadow: 0px 0px 0px 5px rgba(192, 194, 250, 0.7);
-}
-
-#send {
-  display: flex;
-  margin-left: 150px;
-  text-align: center;
-  margin-top: 0px;
   width: 200px;
   height: 35px;
   background-color: #5c75e6;
@@ -196,7 +178,7 @@ header {
   font-size: 17px;
 }
 
-#send:hover {
+#viewAllResult:hover {
   background-color: #6682ff;
   box-shadow: 0px 0px 0px 5px rgba(192, 194, 250, 0.7);
 }
