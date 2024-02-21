@@ -36,7 +36,7 @@ def makeTier(request):
             "tier2": tier2,
             "tier3": tier3,
         }
-        return render(request, "test.html", {"context": context})
+        return render(request, "userResult.html", context)
     except Exception as e:
         return print(str(e))
 
@@ -209,6 +209,6 @@ def allResult(request):
                 context["NonSel"] += [x]
 
         print(context)
-        return render(request, "test.html", {"context": context})
+        return render(request, "allResult.html", {"context": context})
     except Exception as e:
         return print(str(e))
