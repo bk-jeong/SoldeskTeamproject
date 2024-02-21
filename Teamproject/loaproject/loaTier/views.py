@@ -12,6 +12,7 @@ def index(request):
     return render(request, "index.html")
 
 
+
 def makeTier(request):
     try:
         # Insert ORM
@@ -19,6 +20,10 @@ def makeTier(request):
             tier1=request.POST["1tia"],
             tier2=request.POST["2tia"],
             tier3=request.POST["3tia"],
+            # tier4=request.POST[""],
+            # tier5=request.POST[""],
+            # tierout=request.POST[""],
+            # r_id=request.POST[""]
         )
 
         # DB save
@@ -29,19 +34,24 @@ def makeTier(request):
         tier1 = tierRes[0].tier1.split(",")
         tier2 = tierRes[0].tier2.split(",")
         tier3 = tierRes[0].tier3.split(",")
+        # tier4 = tierRes[0].tier4.split(",")
+        # tier5 = tierRes[0].tier5.split(",")
+        # tierout = tierRes[0].tierout.split(",")
 
         # Returon Dictionary Object
         context = {
             "tier1": tier1,
             "tier2": tier2,
             "tier3": tier3,
+            # "tier4": tier4,
+            # "tier5": tier5,
+            # "tierout": tierout,
         }
-        return render(request, "test.html", {"context": context})
+        return render(request, "userResult.html", context)
     except Exception as e:
         return print(str(e))
 
-
-def viewTotalRes(request):
+def allResult(request):
     try:
         allDatas = pd.DataFrame(Tier.objects.all().values())
         df = pd.DataFrame(allDatas).loc[
@@ -108,13 +118,16 @@ def viewTotalRes(request):
                 "52": 0,
             }
             return_obj[i] = egv_init
-
+        #testlist=list(0 for i in range(0,52))
+        #print(testlist)
         for i in range(len(df)):
             for j in return_obj.keys():
                 for k in egv_init.keys():
                     if df[j].str.contains(k)[i]:
                         return_obj[j][k] += 1
-
+                        #testlist[k]+=1
+        #print(testlist)
+        
         # print(return_obj)
         score = {
             "1": 0,
@@ -209,6 +222,6 @@ def viewTotalRes(request):
                 context["NonSel"] += [x]
 
         print(context)
-        return render(request, "test.html", {"context": context})
+        return render(request, "allResult.html",  context)
     except Exception as e:
         return print(str(e))
