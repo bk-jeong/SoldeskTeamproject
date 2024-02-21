@@ -41,7 +41,7 @@ def makeTier(request):
         return print(str(e))
 
 
-def viewTotalRes(request):
+def allResult(request):
     try:
         allDatas = pd.DataFrame(Tier.objects.all().values())
         df = pd.DataFrame(allDatas).loc[
