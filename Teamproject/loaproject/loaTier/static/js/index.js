@@ -38,7 +38,7 @@ for (let index = 0; index < sources.length; index++) {
 
     target.addEventListener("dragenter", (event) => {
       // highlight potential drop target when the draggable element enters it
-      if (event.target.classList.contains("dropzone")) {
+      if (event.target.classList.contains("renkin")) {
         event.target.classList.add("dragover");
       }
     });
@@ -111,9 +111,27 @@ document.getElementById("send").onclick = function () {
   Ctia.setAttribute("name", "3tia");
   Ctia.setAttribute("value", tia[2]);
 
+  const Dtia = document.createElement("input");
+  Dtia.setAttribute("type", "hidden");
+  Dtia.setAttribute("name", "4tia");
+  Dtia.setAttribute("value", tia[3]);
+
+  const Etia = document.createElement("input");
+  Etia.setAttribute("type", "hidden");
+  Etia.setAttribute("name", "5tia");
+  Etia.setAttribute("value", tia[4]);
+
+  const tierout = document.createElement("input");
+  tierout.setAttribute("type", "hidden");
+  tierout.setAttribute("name", "tierout");
+  tierout.setAttribute("value", tia[5]);
+
   form.appendChild(Atia);
   form.appendChild(Btia);
   form.appendChild(Ctia);
+  form.appendChild(Dtia);
+  form.appendChild(Etia);
+  form.appendChild(tierout);
 
   document.body.appendChild(form);
   form.submit();

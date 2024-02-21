@@ -65,7 +65,9 @@
       <div border="1" class="maintb">
         <div id="seticon" class="renkin">
           
-          드래그 안한 데이터들
+         {%for tierout in tierout%}
+                <div><img src="{% get_static_prefix %}imgdata/{{tierout}}img.webp" width="50px" height="50px" draggable="false"></div>
+              {%endfor%}
 
         </div>
       </div>
