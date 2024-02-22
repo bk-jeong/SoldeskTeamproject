@@ -2,11 +2,13 @@ import pandas as pd
 from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.utils import timezone
-from .models import Tier
+from django.forms.models import model_to_dict
+from .models import Tier, Raid
 
 # Create your views here.
-def getToken():
+
+# 각인 dictionary 초기화
+def getEngvInit():
     egv_init = {
                 "01_bigi": 0,
                 "02_kwangki": 0,
@@ -62,50 +64,52 @@ def getToken():
                 "52_heigwi": 0,
             }
     return egv_init
-   
+# 티어 dictionary 초기화
+def getTierInit():
+    res = {"tier1": "", "tier2": "", "tier3": "", "tier4": "", "tier5": ""}
+    return res
+
 def index(request):
-    engv = list(getToken().keys())
-    context = {"engv": engv}
-    return render(request, "index.html", context)
+    return render(request, "index.html")
 
 def makeTier(request):
     try:
         if request.method == "POST":
-            # Insert ORM
+        # Insert ORM
             tier = Tier(
-                # raid=request.POST.get("raid"),
                 tier1=request.POST.get("1tia"),
                 tier2=request.POST.get("2tia"),
                 tier3=request.POST.get("3tia"),
-                # tier4=request.POST.get("1tia"),
-                # tier5=request.POST.get("1tia"),
-                # tierout=request.POST.get("1tia"),
-            )
-            # DB save
+                tier4=request.POST.get("4tia"),
+                tier5=request.POST.get("5tia"),
+                tierout=request.POST.get("tierout"),
+                raid=request.POST.get("raid"),
+                )
+        # DB save
             tier.save()
             return HttpResponseRedirect("/res")
 
         # Select ORM (lastest DB row)
         tierRes = Tier.objects.order_by("-id")[:1]
-        # raid = tierRes[0].raid.values()
+        raid = tierRes[0].raid
         tier1 = tierRes[0].tier1.split(",")
         tier2 = tierRes[0].tier2.split(",")
         tier3 = tierRes[0].tier3.split(",")
-        # tier4 = tierRes[0].tier4.split(",")
-        # tier5 = tierRes[0].tier5.split(",")
-        # tierout = tierRes[0].tierout.split(",")
+        tier4 = tierRes[0].tier4.split(",")
+        tier5 = tierRes[0].tier5.split(",")
+        tierout = tierRes[0].tierout.split(",")
 
         # Returon Dictionary Object
         context = {
-            # "raid":raid,
+            "raid":raid,
             "tier1": tier1,
             "tier2": tier2,
             "tier3": tier3,
-            # "tier4": tier4,
-            # "tier5": tier5,
-            # "tierout": tierout,
+            "tier4": tier4,
+            "tier5": tier5,
+            "tierout": tierout,
         }
-        return render(request, "userResult.html", context)
+        return render(request, "test.html", context)
     except Exception as e:
         return print(str(e))
 
@@ -113,49 +117,51 @@ def makeTier(request):
 def allResult(request):
     try:
         # Tier 테이블에 있는 데이터 가져오기
-        data = Tier.objects.all().values()
-
+        rname = request.POST.get('raid')
+        data = Tier.objects.filter(raid=rname).values()
+        
         alldf = pd.DataFrame(data).loc[
-            :, ["tier1", "tier2", "tier3", "tier4", "tier5"]
+            :, ["tier1", "tier2", "tier3", "tier4", "tier5", "NonSel"]
         ]
-        # 각인이 몇번 해당 티어에 있는지 count하기 위한 변수(dictionary)
-        egv_init = getToken()
+        ndata = len(alldf)
         # egv_init이라는 변수를 넣을 상위 dictionary
-        return_obj = {"tier1": "", "tier2": "", "tier3": "", "tier4": "", "tier5": ""}
+        return_obj = {"tier1": "", "tier2": "", "tier3": "", "tier4": "", "tier5": "", "NonSel":""}
+
+        # 평균 티어표를 만들기 위한 각 각인의 점수를 넣을 score(dictionary)
+        score = getEngvInit()
+
         # return_obj의 key(각 티어)에 egv_init(value) 설정
         for i in return_obj.keys():
             # egv_init = 각인명 - 각 티어에 매겨진 횟수
-            return_obj[i] = getToken()
+            return_obj[i] = getEngvInit()
 
         # 각인 count
-        for i in range(len(alldf)):     # DB row 수 만큼 반복
+        for i in range(ndata):     # DB row 수 만큼 반복
             for j in return_obj.keys(): # 각 티어만큼 반복
-                for k in egv_init.keys():   # 각인 개수만큼 반복
+                for k in score.keys():   # 각인 개수만큼 반복
                     if alldf[j].str.contains(k)[i]:
                         return_obj[j][k] += 1   # 특정 티어의 특정 각인의 value 1씩 더한다
 
         # print(return_obj)
-        # 평균 티어표를 만들기 위한 각 각인의 점수를 넣을 score(dictionary)
-        score = getToken()
-        
         for j in return_obj.keys():
-            for k in egv_init.keys():
+            for k in score.keys():
                 if j == "tier1":
-                    score[k] += return_obj[j][k] * 5 / len(alldf)
+                    score[k] += return_obj[j][k] * 5 / ndata
                 elif j == "tier2":
-                    score[k] += return_obj[j][k] * 4 / len(alldf)
+                    score[k] += return_obj[j][k] * 4 / ndata
                 elif j == "tier3":
-                    score[k] += return_obj[j][k] * 3 / len(alldf)
+                    score[k] += return_obj[j][k] * 3 / ndata
                 elif j == "tier4":
-                    score[k] += return_obj[j][k] * 2 / len(alldf)
+                    score[k] += return_obj[j][k] * 2 / ndata
                 elif j == "tier5":
-                    score[k] += return_obj[j][k] / len(alldf)
+                    score[k] += return_obj[j][k] / ndata
         # 점수를 큰 순서대로 정렬
         sorted_score = sorted(score.items(), key=lambda item: item[1], reverse=True)
         #print(sorted_score)
 
         # html에서 보여줄 티어표
         context = {
+            "raid" : rname,
             "tier1": [],
             "tier2": [],
             "tier3": [],
@@ -178,7 +184,15 @@ def allResult(request):
             else:
                 context["NonSel"] += [x]
 
-        # print(context)
-        return render(request, "allResult.html", context)
+        # 통계(비율) 계산하기
+        engv_statics = getEngvInit()
+        for engv in engv_statics.keys():
+            engv_statics[engv] = {"tier1": 0, "tier2": 0, "tier3": 0, "tier4": 0, "tier5": 0, "NonSel": 0}
+        
+        for engv in engv_statics.keys():
+            for tier in return_obj.keys():
+                engv_statics[engv][tier] = return_obj[tier][engv] / ndata
+        
+        return render(request, "allResult.html" ,{'context':context, 'engv_statics':engv_statics})
     except Exception as e:
         return print(str(e))
