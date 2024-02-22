@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static "css/index.css" %}?ver=1" />
+    <title>LoaTier</title>
+  </head>
+  
+  <body>
+    <header>
+      {% include "includes/header.html" %}
+    </header>
+   
+    <div>
+      <div class="select">
+        {%include "includes/selector1.html"%}
+      </div>
+
+       <th><button id="send" align="center">전송</button></th>
+
+      <div id="main">
+
+        {%include "index/index_kamen.html"%}
+
+      </div>
+    </div>
+    <script src="{% static "js/index.js" %}?ver=1" > </script>
+  </body>
+  </html>

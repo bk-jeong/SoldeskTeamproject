@@ -9,15 +9,15 @@
   </head>
   <body>
     <header>
-      <h1> menu</h1>
-      <a href="/">home</a>
+      {% include "header.html" %}
     </header>
-  <div>
-    <div class="select">
-      <input type="radio" id="select" name="shop" checked="checked"><label for="select"><img src="{% static "imgdata/zkaps.png" %}" width="50px" height="50px" draggable="false" /></label>
-      <input type="radio" id="select2" name="shop"><label for="select2"><img src="{% static "imgdata/dlffl.png" %}" width="50px" height="50px" draggable="false" /></label>
-      <input type="radio" id="select3" name="shop"><label for="select3"><img src="{% static "imgdata/dpzl.png" %}" width="50px" height="50px" draggable="false" /></label>
+    
+    <div>
+      <div class="select">
+        {%include "selector.html"%}
     </div>
+
+
     <div id="main">
       <div border="1" class="maintb" align="center" id="icon">
         <div class="lain">

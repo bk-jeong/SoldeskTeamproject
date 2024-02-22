@@ -62,6 +62,16 @@ for (let index = 0; index < sources.length; index++) {
   }
 }
 
+document.getElementById("select1").onclick = function () {
+  location.href = "http://127.0.0.1:8000/kamen/";
+};
+document.getElementById("select2").onclick = function () {
+  location.href = "http://127.0.0.1:8000/illiakan";
+};
+document.getElementById("select3").onclick = function () {
+  location.href = "http://127.0.0.1:8000/echidna";
+};
+
 document.getElementById("send").onclick = function () {
   var sicon = "";
   var tia = [, , , , ,];
@@ -82,13 +92,6 @@ document.getElementById("send").onclick = function () {
     tia[T] = sicon;
     sicon = "";
     T++;
-  }
-
-  radios = document.getElementsByName("shop");
-  for (var radio of radios) {
-    if (radio.checked) {
-      // alert(radio.value);
-    }
   }
 
   //alert(tia[0]);
@@ -136,57 +139,3 @@ document.getElementById("send").onclick = function () {
   document.body.appendChild(form);
   form.submit();
 };
-
-// let dragged;
-
-// const source = document.getElementById("1img");
-
-// source.addEventListener("drag",(event) => {
-//     console.log("dragging");
-// });
-// source.addEventListener("dragstart", (event) => {
-//     // store a ref. on the dragged elem
-//     dragged = event.target;
-//     // make it half transparent
-//     event.target.classList.add("dragging");
-// });
-
-// source.addEventListener("dragend", (event) => {
-//     // reset the transparency
-//     event.target.classList.remove("dragging");
-// });
-
-// /* events fired on the drop targets */
-// const target = document.getElementById("Aicon");
-// target.addEventListener(
-//     "dragover",
-//     (event) => {
-//       // prevent default to allow drop
-//       event.preventDefault();
-//     },
-//     false,
-// );
-
-// target.addEventListener("dragenter", (event) => {
-//     // highlight potential drop target when the draggable element enters it
-//     if (event.target.classList.contains("dropzone")) {
-//       event.target.classList.add("dragover");
-//     }
-// });
-
-// target.addEventListener("dragleave", (event) => {
-//     // reset background of potential drop target when the draggable element leaves it
-//     if (event.target.classList.contains("renkin")) {
-//       event.target.classList.remove("dragover");
-//     }
-// });
-
-// target.addEventListener("drop", (event) => {
-//     // prevent default action (open as link for some elements)
-//     event.preventDefault();
-//     // move dragged element to the selected drop target
-//     if (event.target.classList.contains("renkin")) {
-//       event.target.classList.remove("dragover");
-//       event.target.appendChild(dragged);
-//     }
-// });

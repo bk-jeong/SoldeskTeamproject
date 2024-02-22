@@ -5,8 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Tier, Raid
 
 # Create your views here.
-
-
+    
 def getToken():
     egv_init = {
                 "01_bigi": 0,
@@ -66,8 +65,19 @@ def getToken():
    
 def index(request):
     context = {"engv": list(getToken().keys())}
-    return render(request, "index.html", context)
+    return render(request, "index/index1.html", context)
 
+def index1(request):
+    context = {"engv": list(getToken().keys())}
+    return render(request, "index/index1.html", context)
+
+def index2(request):
+    context = {"engv": list(getToken().keys())}
+    return render(request, "index/index2.html", context)
+
+def index3(request):
+    context = {"engv": list(getToken().keys())}
+    return render(request, "index/index3.html", context)
 
 def makeTier(request):
     try:
@@ -104,8 +114,8 @@ def makeTier(request):
             "tier5": tier5,
             "tierout": tierout,
         }
-        print(len(tier4))
-        return render(request, "userResult.html", context)
+        
+        return render(request, "results/userResult.html", context)
     except Exception as e:
         return print(str(e))
 
@@ -278,6 +288,6 @@ def allResult(request):
                 context["NonSel"] += [x]
 
         print(context)
-        return render(request, "allResult.html", {"context": context})
+        return render(request, "results/allResult.html", {"context": context})
     except Exception as e:
         return print(str(e))

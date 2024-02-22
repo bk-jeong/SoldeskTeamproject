@@ -24,4 +24,7 @@ urlpatterns = [
     path("", views.index, name="index"),
     path('res/', views.makeTier, name="userResult"),
     path('res/allRes/', views.allResult, name="allResult"),
+    path('kamen/', views.index1, name='kamen'),
+    path('illiakan/', views.index2, name='illiakan'),
+    path('echidna/', views.index3, name='echidna'),
 ]
