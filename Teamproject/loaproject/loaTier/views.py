@@ -113,7 +113,6 @@ def makeTier(request):
     except Exception as e:
         return print(str(e))
 
-
 def allResult(request):
     try:
         # Tier 테이블에 있는 데이터 가져오기
@@ -132,7 +131,7 @@ def allResult(request):
 
         # return_obj의 key(각 티어)에 egv_init(value) 설정
         for i in return_obj.keys():
-            # egv_init = 각인명 - 각 티어에 매겨진 횟수
+        # egv_init = 각인명 - 각 티어에 매겨진 횟수
             return_obj[i] = getEngvInit()
 
         # 각인 count

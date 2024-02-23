@@ -1,4 +1,3 @@
-alert(document.getElementById("select1").value)
 document.getElementById("viewAllResult").onclick = function () {
   const form = document.createElement("form");
   form.setAttribute("method", "post");

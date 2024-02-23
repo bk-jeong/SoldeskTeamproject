@@ -1,5 +1,3 @@
-//alert("chack");
-
 const imgtags=document.querySelectorAll(".imgtag"); // 각인 이미지 태그들 묶음
 const renkins=document.querySelectorAll(".renkin") // 이미지가 들어갈 구역(div) 들의 묶음
 
@@ -64,7 +62,6 @@ function getDragAfterElement(target, x , y) { // 드래그중인 구역에 현�
   ).element;
 }
 
-
 document.getElementById("send").onclick = function () {
   var sicon = "";
   var tia = [, , , , ,];
@@ -86,7 +83,6 @@ document.getElementById("send").onclick = function () {
     sicon = "";
     T++;
   }
-
   var raid = "";
   for (var radio of document.getElementsByName("shop")) {
     if (radio.checked) {
