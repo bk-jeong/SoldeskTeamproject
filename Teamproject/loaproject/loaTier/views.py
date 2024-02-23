@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
@@ -184,7 +185,8 @@ def allResult(request):
             engv_statics[engv] = {"tier1": 0, "tier2": 0, "tier3": 0, "tier4": 0, "tier5": 0, "tierout": 0}
             for tier in return_obj.keys():
                 engv_statics[engv][tier] = return_obj[tier][engv] / ndata
-
+        engv_statics = json.dumps(engv_statics)
+        print(engv_statics)
         return render(request, "allResult.html" ,{'context': context, 'engv_statics':engv_statics})
     except Exception as e:
         return print(str(e))
