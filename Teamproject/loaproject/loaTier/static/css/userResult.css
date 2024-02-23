@@ -29,10 +29,9 @@ body {
   min-height: 100px;
   border: solid 2px black;
   background-color: slategray;
+
   flex-direction: row;
   flex-wrap: wrap;
-  overflow-y: auto;
-  position: relative;
 }
 
 #main {
@@ -170,22 +169,7 @@ header {
   color: #fff;
 }
 
-#select1:hover {
-  background-color: #6682ff;
-  box-shadow: 0px 0px 0px 5px rgba(192, 194, 250, 0.7);
-}
-
-#select2:hover {
-  background-color: #47c83e;
-  box-shadow: 0px 0px 0px 5px rgba(192, 194, 250, 0.7);
-}
-
-#select3:hover {
-  background-color: #ffb2f5;
-  box-shadow: 0px 0px 0px 5px rgba(192, 194, 250, 0.7);
-}
-
-#send {
+#viewAllResult {
   display: flex;
   margin-left: 150px;
   text-align: center;
@@ -197,7 +181,7 @@ header {
   font-size: 17px;
 }
 
-#send:hover {
+#viewAllResult:hover {
   background-color: #6682ff;
   box-shadow: 0px 0px 0px 5px rgba(192, 194, 250, 0.7);
 }

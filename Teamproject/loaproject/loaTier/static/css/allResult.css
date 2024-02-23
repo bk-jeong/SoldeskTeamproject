@@ -23,7 +23,6 @@ body {
 
 .lain {
   display: flex;
-  
   flex-direction: row;
 }
 .rank {
@@ -47,12 +46,10 @@ body {
   min-height: 100px;
   border: solid 2px black;
   background-color: slategray;
-
   flex-direction: row;
   flex-wrap: wrap;
   position: relative;
   display: flex;
-
 }
 
 #Aclass {
@@ -187,7 +184,6 @@ header {
   box-shadow: 0px 0px 0px 5px rgba(192, 194, 250, 0.7);
 }
 
-
 /* styling of the tooltip display */
 .tooltip_image {
   display: none;
@@ -208,5 +204,3 @@ header {
     opacity: 1;
   }
  }
-
- 
