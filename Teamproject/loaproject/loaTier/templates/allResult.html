@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static "css/allResult.css" %}?ver=1" />
+    <link rel="stylesheet" href="{% static "css/allResult.css" %}?ver=3" />
     <title>LoaTier</title>
   </head>
   <body>
@@ -24,7 +24,8 @@
           <div width="50px" align="center" id="Aclass" class="rank">A</div>
           <div width="500px" class="renkin" id="Aicon">
             {%for tier1 in tier1%}
-                <div><img src="{% get_static_prefix %}imgdata/{{tier1}}img.webp" width="50px" height="50px" draggable="false"></div>
+              <img  class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier1}}img.webp">   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier1}}img.webp" width="50px" height="50px" draggable="false"></div>
               {%endfor%}
           </div>
         </div>
@@ -32,29 +33,34 @@
           <div align="center" id="Bclass" class="rank">B</div>
           <div width="500px" class="renkin" id="Bicon">
             {%for tier2 in tier2%}
-                <div><img src="{% get_static_prefix %}imgdata/{{tier2}}img.webp" width="50px" height="50px" draggable="false"></div>
-              {%endfor%}</div>
+              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier2}}img.webp">   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier2}}img.webp" width="50px" height="50px" draggable="false"></div>
+              {%endfor%}
+            </div>
         </div>
         <div class="lain">
           <div align="center" id="Cclass" class="rank">C</div>
           <div width="500px" class="renkin" id="Cicon">
             {%for tier3 in tier3%}
-                <div><img src="{% get_static_prefix %}imgdata/{{tier3}}img.webp" width="50px" height="50px" draggable="false"></div>
-              {%endfor%}</div>
+              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier3}}img.webp">   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier3}}img.webp" width="50px" height="50px" draggable="false"></div>
+              {%endfor%}
         </div>
         <div class="lain">
           <div align="center" id="Dclass" class="rank">D</div>
           <div width="500px" class="renkin" id="Dicon">
-            {%for tier4 in tier4%}
-                <div><img src="{% get_static_prefix %}imgdata/{{tier4}}img.webp" width="50px" height="50px" draggable="false"></div>
-              {%endfor%}</div>
+            {% comment %} {%for tier4 in tier4%}
+              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier4}}img.webp">   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier4}}img.webp" width="50px" height="50px" draggable="false"></div>
+              {%endfor%} {% endcomment %}
         </div>
         <div class="lain">
           <div align="center" id="Eclass" class="rank">E</div>
           <div width="500px" class="renkin" id="Eicon">
-            {%for tier5 in tier5%}
-                <div><img src="{% get_static_prefix %}imgdata/{{tier5}}img.webp" width="50px" height="50px" draggable="false"></div>
-              {%endfor%}</div>
+            {% comment %} {%for tier5 in tier5%}
+              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier5}}img.webp">   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier5}}img.webp" width="50px" height="50px" draggable="false"></div>
+              {%endfor%} {% endcomment %}
         </div>
       </div>
     </div>
@@ -66,6 +72,6 @@
       </div>
     </div>
   </div>
-    <script src="{% static "js/index.js" %}?ver=1" > </script>
-  </body>
+  <script src="{% static "js/allResult.js" %}?ver=7" > </script>
+</body>
   </html>
