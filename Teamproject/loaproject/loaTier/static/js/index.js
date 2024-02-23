@@ -28,12 +28,12 @@ renkins.forEach( renkin => { //각 이미지가 들어갈 구역을 나눔
     e.target.classList.remove("dragover"); // dragover 클래스 삭제
   });
 
-  renkin.addEventListener("dragleave", (event) => {  
-    event.target.classList.remove("dragover"); // 드래그중 취소되면 dragover 클래스 삭제
+  renkin.addEventListener("dragleave", (e) => {  
+    e.target.classList.remove("dragover"); // 드래그중 취소되면 dragover 클래스 삭제
   });
 
-  renkin.addEventListener("drop", (event) => {
-    event.target.classList.remove("dragover");  // 드롭으로 드래그가 끝나면 dragover 클래스 삭제
+  renkin.addEventListener("drop", (e) => {
+    e.target.classList.remove("dragover");  // 드롭으로 드래그가 끝나면 dragover 클래스 삭제
     e.preventDefault();
   });
 });
@@ -64,7 +64,7 @@ function getDragAfterElement(target, x , y) { // 드래그중인 구역에 현�
 
 document.getElementById("send").onclick = function () {
   var sicon = "";
-  var tia = [, , , , ,];
+  var data = [, , , , ,];
   var T = 0;
 
   const lains = document.getElementsByClassName("renkin");
@@ -79,7 +79,7 @@ document.getElementById("send").onclick = function () {
         sicon = sicon + "," + icon.id;
       }
     }
-    tia[T] = sicon;
+    data[T] = sicon;
     sicon = "";
     T++;
   }

@@ -23,44 +23,44 @@
         <div class="lain">
           <div width="50px" align="center" id="Aclass" class="rank">A</div>
           <div width="500px" class="renkin" id="Aicon">
-            {%for tier1 in tier1%}
-              <img  class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier1}}img.webp">   
-                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier1}}img.webp" width="50px" height="50px" draggable="false"></div>
+            {%for tier1 in context.tier1%}
+              <img  class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier1}}.webp">   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier1}}.webp" width="50px" height="50px" draggable="false"></div>
               {%endfor%}
           </div>
         </div>
         <div class="lain">
           <div align="center" id="Bclass" class="rank">B</div>
           <div width="500px" class="renkin" id="Bicon">
-            {%for tier2 in tier2%}
-              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier2}}img.webp">   
-                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier2}}img.webp" width="50px" height="50px" draggable="false"></div>
+            {%for tier2 in context.tier2%}
+              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier2}}.webp">   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier2}}.webp" width="50px" height="50px" draggable="false"></div>
               {%endfor%}
             </div>
         </div>
         <div class="lain">
           <div align="center" id="Cclass" class="rank">C</div>
           <div width="500px" class="renkin" id="Cicon">
-            {%for tier3 in tier3%}
-              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier3}}img.webp">   
-                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier3}}img.webp" width="50px" height="50px" draggable="false"></div>
+            {%for tier3 in context.tier3%}
+              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier3}}.webp">   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier3}}.webp" width="50px" height="50px" draggable="false"></div>
               {%endfor%}
         </div>
         <div class="lain">
           <div align="center" id="Dclass" class="rank">D</div>
           <div width="500px" class="renkin" id="Dicon">
-            {% comment %} {%for tier4 in tier4%}
-              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier4}}img.webp">   
-                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier4}}img.webp" width="50px" height="50px" draggable="false"></div>
-              {%endfor%} {% endcomment %}
+            {%for tier4 in context.tier4%}
+              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier4}}.webp">   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier4}}.webp" width="50px" height="50px" draggable="false"></div>
+              {%endfor%}
         </div>
         <div class="lain">
           <div align="center" id="Eclass" class="rank">E</div>
           <div width="500px" class="renkin" id="Eicon">
-            {% comment %} {%for tier5 in tier5%}
-              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier5}}img.webp">   
-                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier5}}img.webp" width="50px" height="50px" draggable="false"></div>
-              {%endfor%} {% endcomment %}
+            {%for tier5 in context.tier5%}
+              <img class="tooltip_image" src="{% get_static_prefix %}imgdata/{{tier5}}.webp">   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier5}}.webp" width="50px" height="50px" draggable="false"></div>
+            {%endfor%}
         </div>
       </div>
     </div>
@@ -72,6 +72,6 @@
       </div>
     </div>
   </div>
-  <script src="{% static "js/allResult.js" %}?ver=7" > </script>
+  <script src="{% static "js/allResult.js" %}?ver=1" > </script>
 </body>
   </html>

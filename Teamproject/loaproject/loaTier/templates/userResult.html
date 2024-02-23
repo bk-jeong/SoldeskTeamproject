@@ -13,9 +13,9 @@
     </header>
     <div>
       <div class="select">
-        <input type="radio" id="select" name="shop" checked="checked"><label for="select"><img src="{% static "imgdata/zkaps.png" %}" width="50px" height="50px" draggable="false" /></label>
-        <input type="radio" id="select2" name="shop"><label for="select2"><img src="{% static "imgdata/dlffl.png" %}" width="50px" height="50px" draggable="false" /></label>
-        <input type="radio" id="select3" name="shop"><label for="select3"><img src="{% static "imgdata/dpzl.png" %}" width="50px" height="50px" draggable="false" /></label>
+        <input type="radio" id="select1" name="shop" value="kamen" checked="checked"><label for="select"><img src="{% static "imgdata/zkaps.png" %}" width="50px" height="50px" draggable="false" /></label>
+        <input type="radio" id="select2" name="shop" value="iliakhan"><label for="select2"><img src="{% static "imgdata/dlffl.png" %}" width="50px" height="50px" draggable="false" /></label>
+        <input type="radio" id="select3" name="shop" value="echidna"><label for="select3"><img src="{% static "imgdata/dpzl.png" %}" width="50px" height="50px" draggable="false" /></label>
       </div>
       <div><button id="viewAllResult">통계 결과 보기</button></div>
       <div id="main">
@@ -24,7 +24,7 @@
             <div width="50px" align="center" id="Aclass" class="rank">A</div>
             <div width="500px" class="renkin" id="Aicon">
               {%for tier1 in tier1%}
-                <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tier1}}img.webp" width="50px" height="50px" draggable="false"></div>
+                <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tier1}}.webp" width="50px" height="50px" draggable="false"></div>
               {%endfor%}
             </div>
           </div>
@@ -32,7 +32,7 @@
             <div align="center" id="Bclass" class="rank">B</div>
             <div width="500px" class="renkin" id="Bicon">
               {%for tier2 in tier2%}
-                <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tier2}}img.webp" width="50px" height="50px" draggable="false"></div>
+                <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tier2}}.webp" width="50px" height="50px" draggable="false"></div>
               {%endfor%}
             </div>
           </div>
@@ -40,7 +40,7 @@
             <div align="center" id="Cclass" class="rank">C</div>
             <div width="500px" class="renkin" id="Cicon">
               {%for tier3 in tier3%}
-                <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tier3}}img.webp" width="50px" height="50px" draggable="false"></div>
+                <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tier3}}.webp" width="50px" height="50px" draggable="false"></div>
               {%endfor%}
             </div>
           </div>
@@ -48,8 +48,7 @@
             <div align="center" id="Dclass" class="rank">D</div>
             <div width="500px" class="renkin" id="Dicon">
               {%for tier4 in tier4%}
-                <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tier4}}img.webp" width="50px" height="50px" draggable="false"></div>
-                <div><img src="{% get_static_prefix %}imgdata/{{tier4}}img.webp" width="50px" height="50px" draggable="false"></div>
+                <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tier4}}.webp" width="50px" height="50px" draggable="false"></div>
               {%endfor%}
             </div>
           </div>
@@ -57,8 +56,7 @@
             <div align="center" id="Eclass" class="rank">E</div>
             <div width="500px" class="renkin" id="Eicon">
               {%for tier5 in tier5%}
-                <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tier5}}img.webp" width="50px" height="50px" draggable="false"></div>
-                <div><img src="{% get_static_prefix %}imgdata/{{tier5}}img.webp" width="50px" height="50px" draggable="false"></div>
+                <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tier5}}.webp" width="50px" height="50px" draggable="false"></div>
               {%endfor%}
             </div>
           </div>
@@ -67,11 +65,11 @@
       <div border="1" class="maintb">
         <div id="seticon" class="renkin">
          {%for tierout in tierout%}
-            <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tierout}}img.webp" width="50px" height="50px" draggable="false"></div>
+            <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tierout}}.webp" width="50px" height="50px" draggable="false"></div>
          {%endfor%}
         </div>
       </div>
     </div>
-    <script src="{% static "js/userResult.js" %}?ver=1" > </script>
+    <script src="{% static "js/userResult.js" %}?ver=2" > </script>
   </body>
   </html>

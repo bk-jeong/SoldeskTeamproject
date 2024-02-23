@@ -2,8 +2,7 @@ import pandas as pd
 from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from django.forms.models import model_to_dict
-from .models import Tier, Raid
+from .models import Tier
 
 # Create your views here.
 
@@ -66,11 +65,12 @@ def getEngvInit():
     return egv_init
 # 티어 dictionary 초기화
 def getTierInit():
-    res = {"tier1": "", "tier2": "", "tier3": "", "tier4": "", "tier5": ""}
+    res = {"tier1": "", "tier2": "", "tier3": "", "tier4": "", "tier5": "", "tierout": ""}
     return res
 
 def index(request):
-    return render(request, "index.html")
+    context = {"engvs" : getEngvInit()}
+    return render(request, "index.html", context)
 
 def makeTier(request):
     try:
@@ -83,7 +83,7 @@ def makeTier(request):
                 tier4=request.POST.get("4tia"),
                 tier5=request.POST.get("5tia"),
                 tierout=request.POST.get("tierout"),
-                raid=request.POST.get("raid"),
+                rname=request.POST.get("raid"),
                 )
         # DB save
             tier.save()
@@ -91,25 +91,19 @@ def makeTier(request):
 
         # Select ORM (lastest DB row)
         tierRes = Tier.objects.order_by("-id")[:1]
-        raid = tierRes[0].raid
-        tier1 = tierRes[0].tier1.split(",")
-        tier2 = tierRes[0].tier2.split(",")
-        tier3 = tierRes[0].tier3.split(",")
-        tier4 = tierRes[0].tier4.split(",")
-        tier5 = tierRes[0].tier5.split(",")
-        tierout = tierRes[0].tierout.split(",")
 
         # Returon Dictionary Object
         context = {
-            "raid":raid,
-            "tier1": tier1,
-            "tier2": tier2,
-            "tier3": tier3,
-            "tier4": tier4,
-            "tier5": tier5,
-            "tierout": tierout,
+            "raid": tierRes[0].rname,
+            "tier1": tierRes[0].tier1.split(","),
+            "tier2": tierRes[0].tier2.split(","),
+            "tier3": tierRes[0].tier3.split(","),
+            "tier4": tierRes[0].tier4.split(","),
+            "tier5": tierRes[0].tier5.split(","),
+            "tierout": tierRes[0].tierout.split(","),
         }
-        return render(request, "test.html", context)
+
+        return render(request, "userResult.html", context)
     except Exception as e:
         return print(str(e))
 
@@ -117,14 +111,15 @@ def allResult(request):
     try:
         # Tier 테이블에 있는 데이터 가져오기
         rname = request.POST.get('raid')
-        data = Tier.objects.filter(raid=rname).values()
+        
+        data = Tier.objects.filter(rname=rname).values()
         
         alldf = pd.DataFrame(data).loc[
-            :, ["tier1", "tier2", "tier3", "tier4", "tier5", "NonSel"]
+            :, ["tier1", "tier2", "tier3", "tier4", "tier5", "tierout"]
         ]
         ndata = len(alldf)
         # egv_init이라는 변수를 넣을 상위 dictionary
-        return_obj = {"tier1": "", "tier2": "", "tier3": "", "tier4": "", "tier5": "", "NonSel":""}
+        return_obj = getTierInit()
 
         # 평균 티어표를 만들기 위한 각 각인의 점수를 넣을 score(dictionary)
         score = getEngvInit()
@@ -166,7 +161,7 @@ def allResult(request):
             "tier3": [],
             "tier4": [],
             "tier5": [],
-            "NonSel": [],
+            "tierout": [],
         }
         # 점수를 기반으로 context에 각인명 넣어주기
         for x, y in sorted_score:
@@ -181,17 +176,15 @@ def allResult(request):
             elif y > 0:
                 context["tier5"] += [x]
             else:
-                context["NonSel"] += [x]
+                context["tierout"] += [x]
 
         # 통계(비율) 계산하기
         engv_statics = getEngvInit()
         for engv in engv_statics.keys():
-            engv_statics[engv] = {"tier1": 0, "tier2": 0, "tier3": 0, "tier4": 0, "tier5": 0, "NonSel": 0}
-        
-        for engv in engv_statics.keys():
+            engv_statics[engv] = {"tier1": 0, "tier2": 0, "tier3": 0, "tier4": 0, "tier5": 0, "tierout": 0}
             for tier in return_obj.keys():
                 engv_statics[engv][tier] = return_obj[tier][engv] / ndata
-        
-        return render(request, "allResult.html" ,{'context':context, 'engv_statics':engv_statics})
+
+        return render(request, "allResult.html" ,{'context': context, 'engv_statics':engv_statics})
     except Exception as e:
         return print(str(e))
