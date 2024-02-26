@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static "css/index.css" %}?ver=1" />
+    
     <title>LoaTier</title>
   </head>
   
@@ -15,15 +16,28 @@
    
     <div>
       <div class="select">
-        {%include "includes/selector1.html"%}
+        {%include "includes/selector.html"%}
       </div>
 
        <th><button id="send" align="center">전송</button></th>
 
       <div id="main">
 
+      <script>
+        var getParams = "echidna";
+        var raid = document.getElementById("select1");
+        if (raid.value == getParams) {
+          raid.checked = true;
+        }
+      </script>
+      
+      {%if raid_name == kamen%}
         {%include "index/index_kamen.html"%}
-
+      {%elif raid_name == illiakan%}
+        {%include "index/index_illiakan.html"%}
+      {%elif raid_name == echidna%}
+        {%include "index/index_echidna.html"%}  
+      {%endif%}
       </div>
     </div>
     <script src="{% static "js/index.js" %}?ver=1" > </script>

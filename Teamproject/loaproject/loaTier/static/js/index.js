@@ -74,15 +74,22 @@ function getDragAfterElement(target, x, y) {
   ).element;
 }
 
-document.getElementById("select1").onclick = function () {
-  location.href = "http://127.0.0.1:8000/kamen/";
-};
-document.getElementById("select2").onclick = function () {
-  location.href = "http://127.0.0.1:8000/illiakan";
-};
-document.getElementById("select3").onclick = function () {
-  location.href = "http://127.0.0.1:8000/echidna";
-};
+//셀렉터한개로 통일
+const elements = document.getElementsByName("shop");
+
+for (let i = 0; i < elements.length; i++) {
+  elements[i].addEventListener("click", raidChange);
+}
+
+function raidChange(event) {
+  if (document.getElementById("select1").checked) {
+    location.href = "/kamen/";
+  } else if (document.getElementById("select2").checked) {
+    location.href = "/illiakan";
+  } else if (document.getElementById("select3").checked) {
+    location.href = "/echidna";
+  }
+}
 
 document.getElementById("send").onclick = function () {
   var sicon = "";

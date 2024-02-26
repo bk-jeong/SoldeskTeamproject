@@ -45,7 +45,7 @@
     </style>
   </head>
   <body>
-    <kamenTier>
+    <EchidnaTier>
       <nav>
         <ul>
           {%include "includes/ABCDE.html"%}
@@ -65,6 +65,13 @@
           </div>
         </ul>
       </nav>
-    </kamenTier>
+    </EchidnaTier>
+    <script>
+      var getParams = "{{raid}}";
+      var raid = document.getElementById("select3");
+      if (raid.value == getParams) {
+        raid.checked = true;
+      }
+    </script>
   </body>
 </html>

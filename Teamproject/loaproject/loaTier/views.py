@@ -69,21 +69,14 @@ def getTierInit():
     res = {"tier1": "", "tier2": "", "tier3": "", "tier4": "", "tier5": "", "tierout": ""}
     return res
 
-def index(request):
+def home(request):
     context = {"engvs" : getEngvInit()}
     return render(request, "index/index.html", context)
 
-def index1(request):
-    context = {"engvs" : getEngvInit()}
-    return render(request, "index/index1.html", context)
-
-def index2(request):
-    context = {"engvs" : getEngvInit()}
-    return render(request, "index/index2.html", context)
-
-def index3(request):
-    context = {"engvs" : getEngvInit()}
-    return render(request, "index/index3.html", context)
+def index(request, index_name):
+    raid = request.get_full_path().replace('/','')
+    context = {"engvs": getEngvInit(), "raid":raid}
+    return render(request, index_name, context)
 
 def makeTier(request):
     try:

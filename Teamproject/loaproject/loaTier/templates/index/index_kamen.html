@@ -66,5 +66,12 @@
         </ul>
       </nav>
     </kamenTier>
+    <script>
+      var getParams = "{{raid}}";
+      var raid = document.getElementById("select1");
+      if (raid.value == getParams) {
+        raid.checked = true;
+      }
+    </script>
   </body>
 </html>
