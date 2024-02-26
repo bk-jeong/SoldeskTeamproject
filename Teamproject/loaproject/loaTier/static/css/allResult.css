@@ -46,9 +46,10 @@ body {
   min-height: 100px;
   border: solid 2px black;
   background-color: slategray;
-
   flex-direction: row;
   flex-wrap: wrap;
+  position: relative;
+  display: flex;
 }
 
 #Aclass {
@@ -181,4 +182,28 @@ header {
 #viewAllResult:hover {
   background-color: #6682ff;
   box-shadow: 0px 0px 0px 5px rgba(192, 194, 250, 0.7);
+}
+
+/* styling of the tooltip display */
+.tooltip_image {
+  display: none;
+  position: absolute;
+  top: -60px;
+  z-index: 1;
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 2px;
+  animation: fadeIn 0.6s;
+  background-color: white;
+  min-height: 150px;
+  min-width: 250px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

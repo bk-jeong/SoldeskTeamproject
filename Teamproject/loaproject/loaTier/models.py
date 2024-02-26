@@ -9,6 +9,7 @@ class Tier(models.Model):
 
     # Fields
     # r_id = models.ForeignKey("Raid", on_delete=models.CASCADE)
+    rname = models.TextField()
     tier1 = models.TextField()
     tier2 = models.TextField()
     tier3 = models.TextField()
@@ -17,8 +18,3 @@ class Tier(models.Model):
     tierout = models.TextField()
 
 
-class Raid(models.Model):
-    """A typical class defining a model, derived from the Model class."""
-
-    # Fields
-    name = models.CharField(max_length=10)
