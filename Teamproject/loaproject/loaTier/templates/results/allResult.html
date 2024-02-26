@@ -4,52 +4,84 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static "css/allResult.css" %}?ver=1" />
+    <link rel="stylesheet" href="{% static "css/allResult.css" %}?ver=10" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
     <title>LoaTier</title>
   </head>
   <body>
     <header>
-      {% include "header.html" %}
+      <h1> menu</h1>
+      <a href="/">home</a>
     </header>
-    
     <div>
-      <div class="select">
-        {%include "selector.html"%}
+    <div class="select">
+      <input type="radio" id="select" name="shop" checked="checked"><label for="select"><img src="{% static "imgdata/zkaps.png" %}" width="50px" height="50px" draggable="false" /></label>
+      <input type="radio" id="select2" name="shop"><label for="select2"><img src="{% static "imgdata/dlffl.png" %}" width="50px" height="50px" draggable="false" /></label>
+      <input type="radio" id="select3" name="shop"><label for="select3"><img src="{% static "imgdata/dpzl.png" %}" width="50px" height="50px" draggable="false" /></label>
     </div>
-
-
     <div id="main">
       <div border="1" class="maintb" align="center" id="icon">
         <div class="lain">
           <div width="50px" align="center" id="Aclass" class="rank">A</div>
-          <div width="500px" class="renkin" id="Aicon">1티어 데이터</div>
+          <div width="500px" class="renkin" id="Aicon">
+            {%for tier1 in context.tier1%}
+            <canvas  class="tooltip_image" id="{{ tier1 }}" >   </canvas>
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier1}}.webp" width="50px" height="50px" draggable="false"></div>
+              {%endfor%}
+          </div>
         </div>
         <div class="lain">
           <div align="center" id="Bclass" class="rank">B</div>
-          <div width="500px" class="renkin" id="Bicon">2티어 데이터</div>
+          <div width="500px" class="renkin" id="Bicon">
+            {%for tier2 in context.tier2%}
+            <canvas  class="tooltip_image" id="{{ tier2 }}" >   </canvas> 
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier2}}.webp" width="50px" height="50px" draggable="false"></div>
+              {%endfor%}
+            </div>
         </div>
         <div class="lain">
           <div align="center" id="Cclass" class="rank">C</div>
-          <div width="500px" class="renkin" id="Cicon">3티어 데이터</div>
+          <div width="500px" class="renkin" id="Cicon">
+            {%for tier3 in context.tier3%}
+            <canvas  class="tooltip_image" id="{{ tier3 }}" >   </canvas>   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier3}}.webp" width="50px" height="50px" draggable="false"></div>
+              {%endfor%}
         </div>
         <div class="lain">
           <div align="center" id="Dclass" class="rank">D</div>
-          <div width="500px" class="renkin" id="Dicon">4티어 데이터</div>
+          <div width="500px" class="renkin" id="Dicon">
+            {%for tier4 in context.tier4%}
+            <canvas  class="tooltip_image" id="{{ tier4 }}" >   </canvas>   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier4}}.webp" width="50px" height="50px" draggable="false"></div>
+              {%endfor%}
         </div>
         <div class="lain">
           <div align="center" id="Eclass" class="rank">E</div>
-          <div width="500px" class="renkin" id="Eicon">5티어 데이터</div>
+          <div width="500px" class="renkin" id="Eicon">
+            {%for tier5 in context.tier5%}
+            <canvas  class="tooltip_image" id="{{ tier5 }}" >   </canvas>   
+                <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tier5}}.webp" width="50px" height="50px" draggable="false"></div>
+            {%endfor%}
         </div>
       </div>
     </div>
     <div border="1" class="maintb">
       <div id="seticon" class="renkin">
-        
-        드래그 안한 데이터들
-
+        <div width="500px" class="renkin" id="Eicon">
+          {%for tierout in context.tierout%}
+          <canvas  class="tooltip_image" id="{{ tierout }}" >   </canvas>  
+              <div class="ebox"><img src="{% get_static_prefix %}imgdata/{{tierout}}.webp" width="50px" height="50px" draggable="false"></div>
+          {%endfor%}
+      </div>
       </div>
     </div>
   </div>
-    <script src="{% static "js/index.js" %}?ver=1" > </script>
-  </body>
+  
+  <script src="{% static "js/allResult.js" %}?ver=8" > </script>
+  <script src="{% static "js/chart.js" %}?ver=2" > </script>
+  <script> 
+    var testalldata={{engv_statics|safe}} 
+    test(testalldata)
+  </script>
+</body>
   </html>
