@@ -21,7 +21,8 @@ from loaTier import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.index, name="index"),
-    path('res/', views.makeTier, name="userResult"),
-    path('res/all/', views.allResult, name="allResult"),
+    path("", views.home),
+    path('make/<str:group>/', views.make, name='tierMaker'),
+    path('res/<str:group>/<str:id>', views.personal, name="userResult"),
+    path('res/all/', views.statitcs, name="allResult"),
 ]

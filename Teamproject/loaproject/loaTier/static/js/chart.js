@@ -23,14 +23,14 @@ function test(testalldata) {
         
         zero[i]=testvalue;
         for (let index = 0; index < testkey.length; index++) {  //키값에 벨류값을 퍼센트로 계산하여 넣어주는 작업
-            testkey[index]= testkey[index]+"("+(testvalue[index]*100)+"%)"
+            testkey[index]= testkey[index]+"("+(testvalue[index]*100).toFixed(1)+"%)"
         }
         
         pieChartData[i]={   // 그래프에 들어갈 데이터를 정리하는 작업
           labels:testkey,  // 그래프 분류기준인 이름값이 들어가는곳
           datasets: [{  // 분류된 데이터 
             data:testvalue,  // 데이터 값
-            backgroundColor:['red','blue','pink','black','gray','skyblue'], // 데이터별 색상 선택
+            backgroundColor:['#EC423C','#EC7310','#ECE001','#1EEB16','#07E0E7','#0F0FE0'], // 데이터별 색상 선택 * 나중에 같이 수정할 사항
           }]
         };
       };
@@ -42,17 +42,25 @@ function test(testalldata) {
             data:pieChartData[i],  // 만들어둔 데이터 등록
             options: {   // 여러 옵션 설정
                 responsive:false,  // 윈도우 사이즈변동에 따른 그래프 그기 변동 막아주는 기능
+                elements :{
+                  arc:{
+                    borderColor : ['red','#FF9900','#FFFF00','#99FF00','#99CCFF','#084EE7'],  //* 나중에 같이 수정할 사항
+                    borderWidth : 4,  // 파이 차트 보더크기
+                    borderAlign : 'inner', // 보더가 겹쳐지지 않게 하기
+                      
+                  },
+                },
                 plugins:{  // 그래프 내부 옵션 변경을 위한 세부 설정
                     legend: { // 나눈 티어 이름들을 보여주는 옵션
                         position: 'top', // 우측으로 이동
                         align:'start', // 상단으로 이동
-                        maxWidth : 300,
+                        maxWidth : 300, // 사이즈
                         labels:{
                             boxWidth: 15,
                             usePointStyle: true,
-                            pointStyle: 'circle',
-                            color : '#124521',
-                            filter: function(legendItem) {
+                            pointStyle: 'circle', // 라벨의 색상 표시가 둥근 모양으로 보이게
+                            color : 'white', // 라벨 색상 * 나중에 수정할 사항
+                            filter: function(legendItem) { // 라벨에 결과값이 0프로 인게 안보이게 해주는 필터
                                 return zero[i][legendItem.index] != 0 
                             }
                           }
@@ -67,4 +75,3 @@ function test(testalldata) {
       //}
         };
     }
-

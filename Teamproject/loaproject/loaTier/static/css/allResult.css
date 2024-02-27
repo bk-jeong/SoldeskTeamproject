@@ -40,7 +40,7 @@ body {
   flex-direction: row;
 }
 
-.renkin {
+.renkin { /* 내부 아이콘들의 box가 중앙 정렬 되도록 수정 */
   flex: 1;
   width: 1000px;
   min-height: 100px;
@@ -48,9 +48,10 @@ body {
   background-color: slategray;
   flex-direction: row;
   flex-wrap: wrap;
-  position: relative;
   display: flex;
+  align-items: center;
 }
+
 
 #Aclass {
   background-color: red;
@@ -97,9 +98,13 @@ body {
   justify-content: center;
   align-items: center;
 }
-.imgtag {
+.ebox {  /* 이미지 아이콘이 들어간 박스 아이콘이 박스 중앙으로 오도록 수정*/
   width: 70px;
   height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
 }
 
 .dragging {
@@ -194,9 +199,10 @@ header {
   font-size: 1rem;
   border-radius: 2px;
   animation: fadeIn 0.6s;
-  background-color: white;
+  background-color: #696969FF;
   min-height: 150px;
   min-width: 250px;
+  border: solid 2px black;
 }
 
 @keyframes fadeIn {
