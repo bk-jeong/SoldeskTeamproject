@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 from django.views import View
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Tier
 
@@ -28,11 +28,16 @@ def getTierInit():
     res = {"tier1": "", "tier2": "", "tier3": "", "tier4": "", "tier5": "", "tierout": ""}
     return res
 
-def index(request):
-    context = {"engvs" : getEngvInit()}
-    return render(request, "index.html", context)
+def home(request):
+    return render(request, "home.html")
 
-def makeTier(request):
+def make(request, group):
+    pk = Tier.objects.last().pk
+    raid = request.get_full_path().replace('make/','')
+    context = {"engvs": getEngvInit(), "raid":raid.replace('/',''), "pk": pk}
+    return render(request, "tierMaker.html", context)
+
+def personal(request, group, id):
     try:
         if request.method == "POST":
         # Insert ORM
@@ -47,10 +52,11 @@ def makeTier(request):
                 )
         # DB save
             tier.save()
-            return HttpResponseRedirect("/res")
+            id = str(int(id)+1)
+            return HttpResponseRedirect("/res/"+group+"/"+id)
 
         # Select ORM (lastest DB row)
-        tierRes = Tier.objects.order_by("-id")[:1]
+        tierRes = Tier.objects.filter(id=int(id))
 
         # Returon Dictionary Object
         context = {
@@ -62,15 +68,14 @@ def makeTier(request):
             "tier5": tierRes[0].tier5.split(","),
             "tierout": tierRes[0].tierout.split(","),
         }
-
         return render(request, "userResult.html", context)
     except Exception as e:
         return print(str(e))
 
-def allResult(request):
+def statitcs(request):
     try:
         # Tier 테이블에 있는 데이터 가져오기
-        rname = request.POST.get('raid')
+        rname = request.GET.get('raid')
         
         data = Tier.objects.filter(rname=rname).values()
         
@@ -78,6 +83,7 @@ def allResult(request):
             :, ["tier1", "tier2", "tier3", "tier4", "tier5", "tierout"]
         ]
         ndata = len(alldf)
+        
         # egv_init이라는 변수를 넣을 상위 dictionary
         return_obj = getTierInit()
 
@@ -95,24 +101,20 @@ def allResult(request):
                 for k in score.keys():   # 각인 개수만큼 반복
                     if alldf[j].str.contains(k)[i]:
                         return_obj[j][k] += 1   # 특정 티어의 특정 각인의 value 1씩 더한다
-
-        # print(return_obj)
-        for j in return_obj.keys():
-            for k in score.keys():
-                if j == "tier1":
-                    score[k] += return_obj[j][k] * 5 / ndata
-                elif j == "tier2":
-                    score[k] += return_obj[j][k] * 4 / ndata
-                elif j == "tier3":
-                    score[k] += return_obj[j][k] * 3 / ndata
-                elif j == "tier4":
-                    score[k] += return_obj[j][k] * 2 / ndata
-                elif j == "tier5":
-                    score[k] += return_obj[j][k] / ndata
+                        if j == "tier1":
+                            score[k] += return_obj[j][k] * 5 / ndata
+                        elif j == "tier2":
+                            score[k] += return_obj[j][k] * 4 / ndata
+                        elif j == "tier3":
+                            score[k] += return_obj[j][k] * 3 / ndata
+                        elif j == "tier4":
+                            score[k] += return_obj[j][k] * 2 / ndata
+                        elif j == "tier5":
+                            score[k] += return_obj[j][k] / ndata
         # 점수를 큰 순서대로 정렬
         sorted_score = sorted(score.items(), key=lambda item: item[1], reverse=True)
         #print(sorted_score)
-
+        
         # html에서 보여줄 티어표
         context = {
             "raid" : rname,
@@ -146,11 +148,6 @@ def allResult(request):
                 engv_statics[engv][tier] = return_obj[tier][engv] / ndata
         engv_name = list(engv_statics.keys())
         engv_statics = json.dumps(engv_statics)
-        # print(engv_statics)
         return render(request, "allResult.html" ,{'context': context, 'engv_statics':engv_statics, "engv_name":engv_name})
     except Exception as e:
         return print(str(e))
-    
-def home(request):
-    context = {"engvs" : getEngvInit()}
-    return render(request, "home.html", context)

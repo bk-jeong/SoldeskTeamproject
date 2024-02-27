@@ -3,20 +3,27 @@
 <html lang="en"><head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static "css/userResult.css" %}?ver=5" />
+    <link rel="stylesheet" href="{% static "css/userResult.css" %}?ver=1" />
     <title>LoaTier</title>
   </head>
   <body>
     <header>
-      <h1> menu</h1>
-      <a href="/home">home</a>
+      {% include "includes/header.html" %}
     </header>
-    <div>
-      <div class="select">
-        <input type="radio" id="select1" name="shop" value="kamen" checked="checked"><label for="select"><img src="{% static "imgdata/zkaps.png" %}" width="50px" height="50px" draggable="false" /></label>
-        <input type="radio" id="select2" name="shop" value="iliakhan"><label for="select2"><img src="{% static "imgdata/dlffl.png" %}" width="50px" height="50px" draggable="false" /></label>
-        <input type="radio" id="select3" name="shop" value="echidna"><label for="select3"><img src="{% static "imgdata/dpzl.png" %}" width="50px" height="50px" draggable="false" /></label>
-      </div>
+    <div class="select">
+      <nav>
+        <ul>
+          <li>
+            <input type="radio" id="{{raid}}" name="shop" value="{{raid}}" checked/>
+            <label for="{{raid}}">
+              <img src="{% get_static_prefix%}imgdata/{{raid}}.png" width="50px"
+              height="50px" draggable="false" />
+            </label>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
       <div><button id="viewAllResult">통계 결과 보기</button></div>
       <div id="main">
         <div border="1" class="maintb" align="center" id="icon">
@@ -45,6 +52,7 @@
                 <div class="imgtag"><img class="icon" src="{% get_static_prefix %}imgdata/{{tier3}}.webp" draggable="false">
                   <div class="text" width="120px" >{{tier3}}</div></div>
               {%endfor%}
+
             </div>
           </div>
           <div class="lain">
@@ -76,6 +84,6 @@
         </div>
       </div>
     </div>
-    <script src="{% static "js/userResult.js" %}?ver=4" > </script>
+    <script src="{% static "js/userResult.js" %}?ver=1" > </script>
   </body>
   </html>
