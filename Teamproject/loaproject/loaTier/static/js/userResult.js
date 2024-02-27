@@ -1,9 +1,15 @@
 document.getElementById("viewAllResult").onclick = function () {
   const form = document.createElement("form");
-  form.setAttribute("method", "post");
-  form.setAttribute("action", "all/");
+  form.setAttribute("method", "get");
+  form.setAttribute("action", "/res/all/");
 
-  var raid = document.getElementById("select1").value;
+  var raids = document.getElementsByName("shop");
+  var raid;
+  for (let i=0; i<raids.length; i++) {
+    if (raids[i].checked) {
+      raid=raids[i].value;
+    }
+  }
   const Raid = document.createElement("input");
   Raid.setAttribute("type", "hidden");
   Raid.setAttribute("name", "raid");

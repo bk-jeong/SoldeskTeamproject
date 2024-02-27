@@ -10,12 +10,19 @@
     <header>
       {% include "includes/header.html" %}
     </header>
-
-    <div>
-      
-      <div class="select">
-        {%include "includes/selector.html"%}
-      </div>
+    <div class="select">
+      <nav>
+        <ul>
+          <li>
+            <input type="radio" id="{{raid}}" name="shop" value="{{raid}}" checked/>
+            <label for="{{raid}}">
+              <img src="{% get_static_prefix%}imgdata/{{raid}}.png" width="50px"
+              height="50px" draggable="false" />
+            </label>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
       <div><button id="viewAllResult">통계 결과 보기</button></div>
       <div id="main">
@@ -75,11 +82,9 @@
       </div>
       <div border="1" class="maintb">
         <div id="seticon" class="renkin">
-
          {%for tierout in tierout%}
             <div class="imgtag"><img src="{% get_static_prefix %}imgdata/{{tierout}}.webp" width="50px" height="50px" draggable="false"></div>
          {%endfor%}
-
         </div>
       </div>
     </div>

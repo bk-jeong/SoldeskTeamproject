@@ -18,14 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from loaTier import views
-from loaTier.views import index
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.home, name="index"),
-    path('<str:group>/res/', views.makeTier, name="<str:group>userResult"),
-    path('res/allRes/', views.allResult, name="allResult"),
-    path('kamen/', views.index, {'index_name': 'index/index1.html'}, name='kamen'),
-    path('illiakan/', views.index, {'index_name' : 'index/index1.html'}, name='illiakan'),
-    path('echidna/', views.index, {'index_name' : 'index/index1.html'}, name='echidna'),
+    path("", views.home),
+    path('make/<str:group>/', views.make, name='tierMaker'),
+    path('res/<str:group>/<str:id>', views.personal, name="userResult"),
+    path('res/all/', views.statitcs, name="allResult"),
 ]

@@ -5,38 +5,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static "css/index.css" %}?ver=1" />
-    
     <title>LoaTier</title>
   </head>
-  
   <body>
     <header>
       {% include "includes/header.html" %}
     </header>
-   
     <div>
       <div class="select">
         {%include "includes/selector.html"%}
       </div>
-
        <th><button id="send" align="center">전송</button></th>
-
       <div id="main">
-
-    <script>
-      var getParams = "{{raid}}";
-      var r_nm = document.getElementsByName("shop");
-      for(let i=0; i<r_nm.length; i++){
-        if(r_nm[i].value == getParams){
-          r_nm[i].checked = true;
-        }
-      }      
-    </script>
-      
-        {%include "index/index_kamen.html"%}
-
+          {%include "includes/tierTable.html"%}
       </div>
     </div>
+    <script>
+      var pk = {{pk}}
+      var path = "{{raid}}";
+      var page = document.getElementsByName("shop");
+      for(let i=0; i<page.length; i++){
+        if(page[i].value==path){
+          page[i].checked=true;
+        }
+      }
+    </script>
     <script src="{% static "js/index.js" %}?ver=1" > </script>
   </body>
   </html>

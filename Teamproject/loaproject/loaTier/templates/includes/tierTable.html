@@ -45,35 +45,42 @@
     </style>
   </head>
   <body>
-    <kamenTier>
+    <tier>
       <nav>
         <ul>
-          {%include "includes/ABCDE.html"%}
+          <div border="1" class="maintb" align="center" id="icon">
+            <div class="lain">
+              <div width="50px" align="center" id="Aclass" class="rank">A</div>
+              <div width="500px" class="renkin" id="Aicon"></div>
+            </div>
+            <div class="lain">
+              <div align="center" id="Bclass" class="rank">B</div>
+              <div width="500px" class="renkin" id="Bicon"></div>
+            </div>
+            <div class="lain">
+              <div align="center" id="Cclass" class="rank">C</div>
+              <div width="500px" class="renkin" id="Cicon"></div>
+            </div>
+            <div class="lain">
+              <div align="center" id="Dclass" class="rank">D</div>
+              <div width="500px" class="renkin" id="Dicon"></div>
+            </div>
+            <div class="lain">
+              <div align="center" id="Eclass" class="rank">E</div>
+              <div width="500px" class="renkin" id="Eicon"></div>
+            </div>
+          </div>
           <div border="1" class="maintb">
             <div id="seticon" class="renkin">
               {% for i in engvs %}
-              <div class="imgtag" draggable="true" id="{{ i }}">
-                <img
-                  src="{% get_static_prefix %}imgdata/{{i}}.webp"
-                  width="50px"
-                  height="50px"
-                  draggable="false"
-                />
-              </div>
+                <div class="imgtag" draggable="true" id="{{ i }}">
+                  <img src="{% get_static_prefix %}imgdata/{{i}}.webp" width="50px" height="50px" draggable="false" />
+                </div>
               {% endfor %}
             </div>
           </div>
         </ul>
       </nav>
-    </kamenTier>
-    {% comment %}
-    <script>
-      var getParams = "{{raid}}";
-      var raid = document.getElementById("select1");
-      if (raid.value == getParams) {
-        raid.checked = true;
-      }
-    </script>
-    {% endcomment %}
+    </tier>
   </body>
 </html>

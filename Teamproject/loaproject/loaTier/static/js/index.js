@@ -82,12 +82,12 @@ for (let i = 0; i < elements.length; i++) {
 }
 
 function raidChange(event) {
-  if (document.getElementById("select1").checked) {
-    location.href = "/kamen/";
-  } else if (document.getElementById("select2").checked) {
-    location.href = "/illiakan";
-  } else if (document.getElementById("select3").checked) {
-    location.href = "/echidna";
+  if (document.getElementById("kamen").checked) {
+    location.href = "/make/kamen";
+  } else if (document.getElementById("illiakan").checked) {
+    location.href = "/make/illiakan";
+  } else if (document.getElementById("echidna").checked) {
+    location.href = "/make/echidna";
   }
 }
 
@@ -121,7 +121,7 @@ document.getElementById("send").onclick = function () {
 
   const form = document.createElement("form");
   form.setAttribute("method", "post");
-  form.setAttribute("action", "res/");
+  form.setAttribute("action", `/res/${raid}/${pk}`)
 
   const Raid = document.createElement("input");
   Raid.setAttribute("type", "hidden");

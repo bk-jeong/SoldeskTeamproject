@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static "css/index.css" %}?ver=1" />
-    
+    <script src="{% static "js/index.js" %}?ver=1" > </script>
     <title>LoaTier</title>
   </head>
   
@@ -13,20 +13,11 @@
     <header>
       {% include "includes/header.html" %}
     </header>
-   
-    <div>
-      <div class="select">
-        {%include "includes/selector.html"%}
-      </div>
-
-       <th><button id="send" align="center">전송</button></th>
-
-      <div id="main">
-
-        {%include "index/index_kamen.html"%}
-
-      </div>
+    <div class="select">
+      {%include "includes/selector.html"%}
     </div>
-    <script src="{% static "js/index.js" %}?ver=1" > </script>
+    <div>
+      HOME
+    </div>
   </body>
   </html>
