@@ -25,28 +25,16 @@
 
     <script>
       var getParams = "{{raid}}";
-      var raid1 = document.getElementById("select1");
-      var raid2 = document.getElementById("select2");
-      var raid3 = document.getElementById("select3");
-      var raid1_name = raid1.value;
-      var raid2_name = raid2.value;
-      var raid3_name = raid3.value;
-      if (raid1_name == getParams) {
-        raid1.checked = true;
-      } else if(raid2_name == getParams){
-        raid2.checked = true;
-      } else if(raid3_name == getParams){
-        raid3.checked = true;
-      }
+      var r_nm = document.getElementsByName("shop");
+      for(let i=0; i<r_nm.length; i++){
+        if(r_nm[i].value == getParams){
+          r_nm[i].checked = true;
+        }
+      }      
     </script>
       
-      {%if raid1_name == kamen%}
         {%include "index/index_kamen.html"%}
-      {%elif raid2_name == illiakan%}
-        {%include "index/index_illiakan.html"%}
-      {%elif raid3_name == echidna%}
-        {%include "index/index_echidna.html"%}  
-      {%endif%}
+
       </div>
     </div>
     <script src="{% static "js/index.js" %}?ver=1" > </script>
