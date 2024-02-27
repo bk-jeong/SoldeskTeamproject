@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 from django.views import View
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Tier
 
@@ -78,7 +78,7 @@ def index(request, index_name):
     context = {"engvs": getEngvInit(), "raid":raid}
     return render(request, index_name, context)
 
-def makeTier(request):
+def makeTier(request, group):
     try:
         if request.method == "POST":
         # Insert ORM
@@ -93,7 +93,7 @@ def makeTier(request):
                 )
         # DB save
             tier.save()
-            return HttpResponseRedirect("/res")
+            return HttpResponseRedirect("./")
 
         # Select ORM (lastest DB row)
         tierRes = Tier.objects.order_by("-id")[:1]

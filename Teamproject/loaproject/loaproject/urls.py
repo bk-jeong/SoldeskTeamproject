@@ -23,7 +23,7 @@ from loaTier.views import index
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="index"),
-    path('res/', views.makeTier, name="userResult"),
+    path('<str:group>/res/', views.makeTier, name="<str:group>userResult"),
     path('res/allRes/', views.allResult, name="allResult"),
     path('kamen/', views.index, {'index_name': 'index/index1.html'}, name='kamen'),
     path('illiakan/', views.index, {'index_name' : 'index/index1.html'}, name='illiakan'),
