@@ -10,23 +10,31 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+import environ
 from pathlib import Path
+
+env = environ.FileAwareEnv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Take environment variables from .env file
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR,'.env')
+    )
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!-obppn#jkb1s!n^w!h@ubemf4t9ai26zfg-x10bx=f3ux4yv$'
+# SECRET_KEY = 'django-insecure-!-obppn#jkb1s!n^w!h@ubemf4t9ai26zfg-x10bx=f3ux4yv$'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
 # Application definition
 
@@ -70,21 +78,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'loaproject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'loaproject',
-        'USER': 'root',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'HOST': env("DATABASE_HOST"),
+        'PORT': env("DATABASE_PORT")
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -103,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
