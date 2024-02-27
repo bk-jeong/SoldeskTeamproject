@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 from django.views import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Tier
 
@@ -10,17 +10,17 @@ from .models import Tier
 # 각인 dictionary 초기화
 def getEngvInit():
     egv_init = {
-        "01_bigi": 0, "02_kwangki": 0, "03_boonmang": 0, "04_zoongsu": 0, "05_gogi": 0,
-        "06_zeontae": 0, "07_cheodan": 0, "08_posik": 0, "09_oeganhwa": 0, "10_chosim": 0, 
-        "11_zeolzung": 0, "12_zeolze": 0, "13_chesool": 0, "14_choongyuk": 0, "15_yukcheon": 0,
-        "16_semaek": 0, "17_ilgyuk": 0, "18_nanmu": 0, "19_soora": 0, "20_kwaonwang": 0,
-        "21_yoosan": 0, "22_kisool": 0, "23_pogyuk": 0, "24_hwaryuk": 0, "25_doodong": 0,
-        "26_zuksoup": 0, "27_gangmu": 0, "28_hangun": 0, "29_pime": 0, "30_sasi": 0,
-        "31_kyokam": 0, "32_sangso": 0, "33_hwangze": 0, "34_hwanghoo": 0, "35_zeomhwa": 0,
-        "36_hwanryu": 0, "37_choongdong": 0, "38_ukze": 0, "39_burst": 0, "40_zanzae": 0,
-        "41_dalso": 0, "42_galzung": 0, "43_manwol": 0, "44_gumum": 0, "45_zilpoong": 0,
-        "46_islebi": 0, "47_chookoh": 0, "48_simpan": 0, "49_zeolgu": 0, "50_zinyong": 0,
-        "51_mangae": 0, "52_heigwi": 0,
+        "버서커-비기": 0, "버서커-광기": 0, "디트-분망": 0, "디트-중수": 0, "워로드-고기": 0,
+        "워로드-전태": 0, "슬레-처단": 0, "슬레-포식": 0, "배마-오의": 0, "배마-초심": 0,
+        "창술-절정": 0, "창술-절제": 0, "인파-체술": 0, "인파-충단": 0, "기공-역천": 0,
+        "기공-세멕": 0, "스커-일격": 0, "스커-난무": 0, "브커-수라": 0, "브커-권왕": 0,
+        "스카-유산": 0, "스카-기술": 0, "블래-포강": 0, "블래-화강": 0, "호크-두동": 0,
+        "호크-죽습": 0, "데헌-강무": 0, "데헌-핸드": 0, "건슬-피메": 0, "건슬-사시": 0,
+        "서머너-교감": 0, "서머너-상소": 0, "알카-황제": 0, "알카-황후": 0, "소서-점화": 0,
+        "소서-환류": 0, "데모닉-충동": 0, "데모닉-억제": 0, "블레-버스트": 0, "블레-잔재": 0,
+        "리퍼-달소": 0, "리퍼-갈증": 0, "소울-만월": 0, "소울-그믐": 0, "기상-질풍": 0,
+        "기상-이슬비": 0, "홀나-축오": 0, "홀나-심판": 0, "바드-절구": 0, "바드-용맹": 0,
+        "도화가-만개": 0, "도화가-회귀": 0,
         }
     return egv_init
 # 티어 dictionary 초기화
@@ -28,16 +28,11 @@ def getTierInit():
     res = {"tier1": "", "tier2": "", "tier3": "", "tier4": "", "tier5": "", "tierout": ""}
     return res
 
-def home(request):
-    return render(request, "home.html")
+def index(request):
+    context = {"engvs" : getEngvInit()}
+    return render(request, "index.html", context)
 
-def make(request, group):
-    pk = Tier.objects.last().pk
-    raid = request.get_full_path().replace('make/','')
-    context = {"engvs": getEngvInit(), "raid":raid.replace('/',''), "pk": pk}
-    return render(request, "tierMaker.html", context)
-
-def personal(request, group, id):
+def makeTier(request):
     try:
         if request.method == "POST":
         # Insert ORM
@@ -52,11 +47,10 @@ def personal(request, group, id):
                 )
         # DB save
             tier.save()
-            id = str(int(id)+1)
-            return HttpResponseRedirect("/res/"+group+"/"+id)
+            return HttpResponseRedirect("/res")
 
         # Select ORM (lastest DB row)
-        tierRes = Tier.objects.filter(id=int(id))
+        tierRes = Tier.objects.order_by("-id")[:1]
 
         # Returon Dictionary Object
         context = {
@@ -68,14 +62,15 @@ def personal(request, group, id):
             "tier5": tierRes[0].tier5.split(","),
             "tierout": tierRes[0].tierout.split(","),
         }
+
         return render(request, "userResult.html", context)
     except Exception as e:
         return print(str(e))
 
-def statitcs(request):
+def allResult(request):
     try:
         # Tier 테이블에 있는 데이터 가져오기
-        rname = request.GET.get('raid')
+        rname = request.POST.get('raid')
         
         data = Tier.objects.filter(rname=rname).values()
         
@@ -83,7 +78,6 @@ def statitcs(request):
             :, ["tier1", "tier2", "tier3", "tier4", "tier5", "tierout"]
         ]
         ndata = len(alldf)
-        
         # egv_init이라는 변수를 넣을 상위 dictionary
         return_obj = getTierInit()
 
@@ -101,20 +95,24 @@ def statitcs(request):
                 for k in score.keys():   # 각인 개수만큼 반복
                     if alldf[j].str.contains(k)[i]:
                         return_obj[j][k] += 1   # 특정 티어의 특정 각인의 value 1씩 더한다
-                        if j == "tier1":
-                            score[k] += return_obj[j][k] * 5 / ndata
-                        elif j == "tier2":
-                            score[k] += return_obj[j][k] * 4 / ndata
-                        elif j == "tier3":
-                            score[k] += return_obj[j][k] * 3 / ndata
-                        elif j == "tier4":
-                            score[k] += return_obj[j][k] * 2 / ndata
-                        elif j == "tier5":
-                            score[k] += return_obj[j][k] / ndata
+
+        # print(return_obj)
+        for j in return_obj.keys():
+            for k in score.keys():
+                if j == "tier1":
+                    score[k] += return_obj[j][k] * 5 / ndata
+                elif j == "tier2":
+                    score[k] += return_obj[j][k] * 4 / ndata
+                elif j == "tier3":
+                    score[k] += return_obj[j][k] * 3 / ndata
+                elif j == "tier4":
+                    score[k] += return_obj[j][k] * 2 / ndata
+                elif j == "tier5":
+                    score[k] += return_obj[j][k] / ndata
         # 점수를 큰 순서대로 정렬
         sorted_score = sorted(score.items(), key=lambda item: item[1], reverse=True)
         #print(sorted_score)
-        
+
         # html에서 보여줄 티어표
         context = {
             "raid" : rname,
@@ -148,6 +146,11 @@ def statitcs(request):
                 engv_statics[engv][tier] = return_obj[tier][engv] / ndata
         engv_name = list(engv_statics.keys())
         engv_statics = json.dumps(engv_statics)
+        # print(engv_statics)
         return render(request, "allResult.html" ,{'context': context, 'engv_statics':engv_statics, "engv_name":engv_name})
     except Exception as e:
         return print(str(e))
+    
+def home(request):
+    context = {"engvs" : getEngvInit()}
+    return render(request, "home.html", context)

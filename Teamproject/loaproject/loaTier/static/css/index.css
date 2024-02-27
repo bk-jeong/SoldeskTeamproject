@@ -11,13 +11,21 @@ body {
   flex-direction: column;
 }
 
+.mp4{
+  width: 100%;
+  position: relative;
+}
+.icon{
+  width: 70px;
+  height: 60px;
+  padding: 4px 0px;
+}
+
 #seticon {
-  width: 500px;
   height: 1500px;
   border: solid 2px black;
 
   margin-right: auto;
-  background-color: slategray;
   display: flex;
   flex-direction: row;
 }
@@ -28,11 +36,10 @@ body {
   width: 800px;
   min-height: 100px;
   border: solid 2px black;
-  background-color: slategray;
+  background-color: #6682ff44;
   flex-direction: row;
   flex-wrap: wrap;
   overflow-y: auto;
-  position: relative;
 }
 
 #main {
@@ -102,16 +109,26 @@ body {
   align-items: center;
 }
 .imgtag {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 4px 1px;
 }
 
 .dragging {
   opacity: 0.5;
 }
 
-.renkin.dragover {
-  background-color: purple;
+.text{
+  border: solid 1px black;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  width: 70px;
+  text-align: center;
+  font-size: 11px;
 }
 
 .awakeningname {

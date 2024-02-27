@@ -22,6 +22,21 @@ body {
   flex-direction: row;
 }
 
+.icon{
+  width: 70px;
+  height: 60px;
+  padding: 4px 0px;
+}
+
+.text{
+  border: solid 1px black;
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  width: 70px;
+  text-align: center;
+  font-size: 11px;
+}
+
 .renkin {
   display: flex;
   flex: 1;
@@ -29,7 +44,6 @@ body {
   min-height: 100px;
   border: solid 2px black;
   background-color: slategray;
-
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -101,8 +115,13 @@ body {
   align-items: center;
 }
 .imgtag {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 4px 1px;
 }
 
 .dragging {
