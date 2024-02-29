@@ -58,7 +58,7 @@ def personal(request, group, id):
                 )
         # DB save
             tier.save()
-            id = str(int(id)+1)
+            id = Tier.objects.last().pk
             return HttpResponseRedirect("/res/"+group+"/"+id)
 
         # Select ORM (lastest DB row)
