@@ -16,9 +16,9 @@ def make(request, group):
         if(Tier.objects.last() != None):
             pk = Tier.objects.last().pk
         else:
-            pk = 0
+            pk = 1
         raid = request.get_full_path().replace('make/','')
-        context = {"engvs": sr.getEngv(), "raid":raid.replace('/',''), "pk": pk}
+        context = {"engvs": sr.getEngv(), "raid":raid.replace('/',''), "pk": str(pk)}
         return render(request, "tierMaker.html", context)
     except Exception as e:
         print(str(e))
@@ -40,7 +40,7 @@ def personal(request, group, id):
         # DB save
             tier.save()
             id = Tier.objects.last().pk
-            return HttpResponseRedirect("/res/"+group+"/"+id)
+            return HttpResponseRedirect("/res/"+group+"/"+str(id))
 
         # Select ORM (lastest DB row)
         tierRes = Tier.objects.filter(id=int(id))
@@ -64,18 +64,15 @@ def statitcs(request):
     try:
         # Tier 테이블에 있는 데이터 가져오기
         raid = request.GET.get('raid')
-        
+        tier = list(sr.tierName.keys())
         if len(Tier.objects.filter(rname=raid)) > 0:
             data = Tier.objects.filter(rname=raid).values()
+            alldf = pd.DataFrame(data).loc[:, tier]
+            ndata = len(alldf)
         else:
             data = sr.getTier()
-            data['tierout'] = sr.getEngv() 
-        
-        alldf = pd.DataFrame(data).loc[
-            :, ["tier1", "tier2", "tier3", "tier4", "tier5", "tierout"]
-        ]
-        ndata = len(alldf)
-        
+            data['tierout'] = sr.getEngv()
+
         tier_Cnt = sr.tierPerEngv(ndata, alldf)
         engv_Pick = sr.getEngvPick(tier_Cnt)
         engv_Score = sr.getEngvScore(tier_Cnt,engv_Pick)
@@ -93,10 +90,9 @@ def statitcs(request):
         context = {"raid" : raid,}
         # 점수를 기반으로 context에 각인명 넣어주기
         context.update(engv_Score)
-        engv_name = list(sr.engvName.keys())
+        
         engv_statics.update({'데이터개수':ndata})
-        print(engv_statics)
-
+        engv_name = list(sr.engvName.keys())
         engv_statics = json.dumps(engv_statics)
         return render(request, "allResult.html" ,{'context': context, 'engv_statics':engv_statics, "engv_name":engv_name})
     except Exception as e:
