@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static "css/index.css" %}?ver=1" />
+    <link rel="stylesheet" href="{% static "css/common.css" %}?ver=1" />
+    <title>LoaTier</title>
+    
+  </head>
+  <body>
+    <header style="z-index:2;">
+      {% include "includes/header.html" %}
+    </header>
+    
+    <div>
+      <div class="select" style="z-index:1;">
+        {%include "includes/selector.html"%}
+      </div>
+       <th><button id="send" align="center">저장</button></th>
+      <div id="main">
+        {%include "includes/tierTable.html"%}
+      </div>
+    </div>
+
+    
+      <video autoplay muted loop name="bg" id="video-background">
+        <source src="/static/imgdata/{{raid}}.mp4" type="video/mp4">
+      </video>
+    
+      <footer>
+        {%include "includes/footer.html"%}
+      </footer>
+
+    <script>
+      var pk = {{pk}}
+      var path = "{{raid}}";
+      var page = document.getElementsByName("shop");
+      
+      for(let i=0; i<page.length; i++){
+        if(page[i].value==path){
+          page[i].checked=true;
+        }
+      }
+    </script>
+    <script src="{% static "js/index.js" %}?ver=1" > </script>
+  </body>
+  </html>

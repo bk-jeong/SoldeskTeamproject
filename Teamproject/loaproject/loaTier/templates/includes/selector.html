@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static "css/selector.css" %}?ver=1" />
+    <title>Selector</title>
+  </head>
+  <body>
+    <div class="select">
+      <nav>
+        <ul>
+          <li>
+            <input type="radio" id="kamen" name="shop" value="kamen" />
+            <label for="kamen">
+              <img src="{% static "imgdata/kamen.png" %}" width="50px"
+              height="50px" draggable="false" />
+            </label>
+          </li>
+          <li>
+            <input type="radio" id="illiakan" name="shop" value="illiakan" />
+            <label for="illiakan">
+              <img src="{% static "imgdata/illiakan.png" %}" width="50px"
+              height="50px" draggable="false" />
+            </label>
+          </li>
+          <li>
+            <input type="radio" id="echidna" name="shop" value="echidna" />
+            <label for="echidna">
+              <img src="{% static "imgdata/echidna.png" %}" width="50px"
+              height="50px" draggable="false" />
+            </label>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </body>
+</html>
