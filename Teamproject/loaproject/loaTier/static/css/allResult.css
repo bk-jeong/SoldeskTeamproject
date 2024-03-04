@@ -1,5 +1,6 @@
 body {
   padding-top: 85px;
+  min-height: 100vh;
 }
 
 .maintb {
@@ -212,14 +213,18 @@ header {
   position: absolute;
   top: -60px;
   z-index: 1;
-  padding: 8px;
   font-size: 1rem;
   border-radius: 2px;
   animation: fadeIn 0.6s;
-  background-color: #696969FF;
+  background-color: #FFFFFFcc;
   min-height: 150px;
   min-width: 250px;
   border: solid 2px black;
+}
+
+.tooltip_div{
+  display: flex;
+  align-items: center;
 }
 
 @keyframes fadeIn {
@@ -230,3 +235,13 @@ header {
     opacity: 1;
   }
  }
+
+ footer{
+  left: 0;
+  right: 0;
+  height: 20px;
+  bottom: 0px;
+  position: relative;
+
+  background-color: #47c83e;
+}
