@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static "css/index.css" %}?ver=1" />
+    <link rel="stylesheet" href="{% static "css/common.css" %}?ver=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>LoaTier</title>
+    
+  </head>
+  <body>
+    <header style="z-index:2;">
+      {% include "includes/header.html" %}
+    </header>
+    
+    <div>
+      <div class="select" style="z-index:1;">
+        {%include "includes/selector.html"%}
+      </div>
+      <button id="send" >저장</button>
+       <div class="introduce">OP ~ 4티어까지 원하는 위치에 드래그 & 드롭!</div>
+      <div id="main">
+        {%include "includes/tierTable.html"%}
+      </div>
+    </div>
+
+    
+      <video autoplay muted loop name="bg" id="video-background">
+        <source src="/static/imgdata/{{raid}}.mp4" type="video/mp4">
+      </video>
+    
+      <footer>
+        {%include "includes/footer.html"%}
+      </footer>
+
+    <script>
+      var pk = {{pk}}
+      var path = "{{raid}}";
+      var page = document.getElementsByName("shop");
+      
+      for(let i=0; i<page.length; i++){
+        if(page[i].value==path){
+          page[i].checked=true;
+        }
+      }
+    </script>
+    <script src="{% static "js/index.js" %}?ver=1" > </script>
+  </body>
+  </html>

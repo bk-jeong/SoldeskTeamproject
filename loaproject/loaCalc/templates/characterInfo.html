@@ -1,0 +1,41 @@
+{% load static %}
+<div class="content">
+  <div class="characterinfo_wrap">
+    <dl class="characterinfo">
+      <img src="{{prof.img}}" class="characterimg" width="400px" />
+      <dt>캐릭터 이름 :&nbsp;{{prof.name}}&nbsp;</dt>
+      <dd><span></span></dd>
+      <dt>아이템 레벨 :&nbsp;{{prof.avglv}}&nbsp;</dt>
+      <dd><span></span></dd>
+    </dl>
+  </div>
+  <div class="equipment_wrap">
+    <h3 id="equipment_list">장착 장비 목록</h3>
+    <div class="equipment_table">
+      <div class="equipment">
+        <img src="{{eqmt.1.Icon}}" />&nbsp;{% if eqmt.1.exceed %}초월 : {{eqmt.1.exceed}}{% endif %}
+        <div>&nbsp;{{eqmt.1.Name}}</div>
+      </div>
+      <div class="equipment">
+        <img src="{{eqmt.5.Icon}}" />&nbsp;{% if eqmt.5.exceed %}초월 : {{eqmt.5.exceed}}{% endif %}
+        <div>&nbsp;{{eqmt.5.Name}}</div>
+      </div>
+      <div class="equipment">
+        <img src="{{eqmt.2.Icon}}" />&nbsp;{% if eqmt.2.exceed %}초월 : {{eqmt.2.exceed}}{% endif %}
+        <div>&nbsp;{{eqmt.2.Name}}</div>
+      </div>
+      <div class="equipment">
+        <img src="{{eqmt.3.Icon}}" />&nbsp;{% if eqmt.3.exceed %}초월 : {{eqmt.3.exceed}}{% endif %}
+        <div>&nbsp;{{eqmt.3.Name}}</div>
+      </div>
+      <div class="equipment">
+        <img src="{{eqmt.4.Icon}}" />&nbsp;{% if eqmt.4.exceed %}초월 : {{eqmt.4.exceed}}{% endif %}
+        <div>&nbsp;{{eqmt.4.Name}}</div>
+      </div>
+      <div class="equipment">
+        <img src="{{eqmt.0.Icon}}" />&nbsp;
+        <div>&nbsp;{{eqmt.0.Name}}</div>
+      </div>
+    </div>
+  </div>
+</div>

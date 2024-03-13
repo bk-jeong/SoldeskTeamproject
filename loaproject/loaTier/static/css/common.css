@@ -1,0 +1,102 @@
+.maintb {
+  float: right;
+  margin-top: 30px;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+}
+#seticon {
+  width: 883px;
+  height: 1500px;
+  border: solid 1px black;
+  float: right;
+  margin: 1px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+}
+.renkin {
+  display: flex;
+  flex: 1;
+  width: 800px;
+  min-height: 100px;
+  border: solid 1px black;
+  background-color: slategray;
+
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.imgtag {
+  width: 80px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 4px 4px;
+  opacity: 1;
+}
+
+#Aclass {
+  background-color: #ff3333;
+}
+#Bclass {
+  background-color: #ff9933;
+}
+#Cclass {
+  background-color: #ffff66;
+}
+#Dclass {
+  background-color: greenyellow;
+}
+#Eclass {
+  background-color: cornflowerblue;
+}
+
+.text {
+  border: solid 1px black;
+  background-color: #ffffff;
+  border-radius: 5px;
+  width: 70px;
+  text-align: center;
+  font-size: 11px;
+}
+
+.rank {
+  min-height: 100px;
+  font-size: 30px;
+  width: 80px;
+  border: solid 1px black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+.lain {
+  display: flex;
+  flex-direction: row;
+}
+.icon {
+  width: 50px;
+  height: 50px;
+  padding: 4px 0px;
+}
+.icon2 {
+  width: 50px;
+  height: 50px;
+  padding: 4px 0px;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.introduce {
+  position: relative;
+  z-index: 3;
+}
