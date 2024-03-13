@@ -45,7 +45,7 @@ function hendscheck() {
   if (range.indexOf(handvalue) == 0) {
     document.getElementById("hands").value = 0;
   }
-  if (document.getElementById("hands").value < 5) {
+  if (num < 5) {
     document.getElementById("fstreward").checked = false;
   } else {
     document.getElementById("fstreward").checked = true;

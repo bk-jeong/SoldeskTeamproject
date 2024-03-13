@@ -35,8 +35,7 @@ body {
 
 .characterinfo dd span {
   color: rgb(255, 255, 255);
-  text-shadow: rgb(0, 0, 0) -1px 0px, rgb(0, 0, 0) 0px 1px, rgb(0, 0, 0) 1px 0px,
-    rgb(0, 0, 0) 0px -1px;
+  text-shadow: rgb(0, 0, 0) -1px 0px, rgb(0, 0, 0) 0px 1px, rgb(0, 0, 0) 1px 0px, rgb(0, 0, 0) 0px -1px;
 }
 
 .equipment_wrap {
@@ -50,6 +49,7 @@ body {
 #equipment_list {
   font-family: "Noto Sans KR", sans-serif;
   text-align: center;
+  width: 340px;
 }
 
 .equipment_table {
@@ -58,6 +58,7 @@ body {
 }
 
 .equipment {
+  display: flex;
   height: 80px;
   padding: 10px;
   font-size: 20px;
@@ -65,8 +66,15 @@ body {
   background-color: #f0f0f0;
   border-radius: 5px;
   font-size: 12pt;
+  align-items: center;
 }
-
+.equipment_img {
+  margin: 0 auto;
+}
+.equipment_text {
+  margin: 0 auto;
+  font-size: 14px;
+}
 .characterimg {
   margin-top: 70px;
   height: 550px;

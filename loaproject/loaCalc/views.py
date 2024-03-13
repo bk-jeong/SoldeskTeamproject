@@ -43,7 +43,6 @@ def calcPage(request):
             opts['inven'] = int(opts['inven'])
         else:
             opts = None
-            
         context = {
             'prof' : prof,
             'eqmt' : eqmt,
@@ -53,7 +52,7 @@ def calcPage(request):
         result = calcMain(prof, eqmt, raid, opts)
         context['result'] = result
         context['materialImg'] = "https://i.imgur.com/LrRIH8K.png" if raid=='0' else "https://i.imgur.com/g0URllR.png" if raid=='1' else ''
-        
+        print(context['opts'])
     return render(request, "Calculator.html", context)
 
 def error400(request, exception):
