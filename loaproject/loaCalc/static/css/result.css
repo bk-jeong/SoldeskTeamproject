@@ -103,6 +103,7 @@ body {
 
 .bonus {
   width: 15px;
+  display: inline-block;
 }
 
 .normalhardForm {
@@ -173,6 +174,6 @@ input[type="checkbox"] {
   flex-wrap: wrap;
 }
 
-.bonus {
-  display: inline-block;
+#allbonus {
+  margin-left: 200px;
 }
