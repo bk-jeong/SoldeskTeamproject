@@ -15,16 +15,16 @@
 
     <div>
       <div class="normalhardForm">
-        <form action="#" name="difficulty" method="get" id="normalhardForm">
+        {% comment %} <form action="#" name="difficulty" method="get" id="normalhardForm"> {% endcomment %}
           <div>
-            <button class="closeBtn" onclick="closeForm();">X</button>
+            <button class="closeBtn" onclick="showFilter();">X</button>
           </div>
           <div>
           <fieldset class="totalField">
             <legend>난이도 선택</legend>
             <fieldset class="stageSet">
               <legend>1관문</legend>
-              <select name="stage1" size="3" id="stage1">
+              <select name="stage1" size="3" id="stage1" onchange="changeFn()" class="stages" >
                 <option value="normal">노말</option>
                 <option value="hard">하드</option>
               </select>
@@ -34,12 +34,13 @@
                     class="bonus"
                     value="yes"
                     onchange="checkboxGroup(this)"
+                    id="stage1Plus"
                   />
                 </div>
             </fieldset>
             <fieldset class="stageSet">
               <legend>2관문</legend>
-              <select name="stage2" size="3" id="stage2">
+              <select name="stage2" size="3" id="stage2" class="stages">
                 <option value="normal">노말</option>
                 <option value="hard">하드</option>
                 <option value="dont">안함</option>
@@ -51,13 +52,14 @@
                     class="bonus"
                     value="yes"
                     onchange="checkboxGroup(this)"
+                    id="stage2Plus"
                   />
                 </div>
               </div>
             </fieldset>
             <fieldset class="stageSet">
               <legend>3관문</legend>
-              <select name="stage3" size="3" id="stage3">
+              <select name="stage3" size="3" id="stage3" class="stages">
                 <option value="normal">노말</option>
                 <option value="hard">하드</option>
                 <option value="dont">안함</option>
@@ -69,13 +71,14 @@
                     class="bonus"
                     value="yes"
                     onchange="checkboxGroup(this)"
+                    id="stage3Plus"
                   />
                 </div>
               </div>
             </fieldset>
-            <fieldset class="stageSet">
+            <fieldset class="stageSet"> 
               <legend>4관문</legend>
-              <select name="stage4" size="3" id="stage4">
+              <select name="stage4" size="3" id="stage4" class="stages">
                 <option value="hard">하드</option>
                 <option value="dont">안함</option>
               </select>
@@ -86,25 +89,27 @@
                     class="bonus"
                     value="yes"
                     onchange="checkboxGroup(this)"
+                    id="stage4Plus"
                   />
                 </div>
             </fieldset>
             </div>
             <div class="bonusGroup">
-                <button class="calculateBtn" type="submit" form="normalhardForm">계산</button>
+                <button class="calculateBtn" type="submit" form="normalhardForm" id="collCalc">계산</button>
             </div>
           </div>
           </fieldset>
-        </form>
+        {% comment %} </form> {% endcomment %}
       </div>
 
     <div class="quickSlot">
       소지 재료 갯수 :
-      <input type="number" class="count_ingredient" min="0" /> 손길 :
-      <input type="number" class="hand" max="5" min="0" />
-      경매<input type="checkBox" class="hand" /> 첫클보상<input
+      <input type="number" class="count_ingredient" min="0" id="inven" value="0" oninput="invencheck()" /> 손길 :
+      <input type="number" class="hand" max="5" min="0" id="hands" placeholder="0" oninput="hendscheck()" />
+      경매<input type="checkBox" class="hand" id="auction" /> 첫클보상<input
         type="checkBox"
         class="hand"
+        id="fstreward"
       />
     </div>
     <div>
@@ -114,6 +119,7 @@
         class="bonus"
         value="yes"
         onclick="selectAllyes(this)"
+        id="allbonus"
       />
       <button class="filter" onclick="showFilter()">필터</button>
     </div>
@@ -149,11 +155,11 @@
                 <td class="tableCell" scope="col"></td>
               {% endif %}
             {% endfor%}
-            <td class="tableCell" scope="col">{{res.auction}}</td>
-            <td class="tableCell" scope="col"><img src={{materialImg}} alt="어둠의 불">{{res.material}}</td>
-            <td class="tableCell" scope="col">{{res.accum}}</td>
+            <td class="tableCell" scope="col">{% if res.auction %}O{% else %}X{% endif %}</td>
+            <td class="tableCell" scope="col"><img src={{materialImg}}>x{{res.material}}</td>
+            <td class="tableCell" scope="col"><img src={{materialImg}}>x{{res.accum}}</td>
             <td class="tableCell" scope="col">{{res.gold}}<img src="https://i.imgur.com/2SWmGw4.png" alt="골드"></td>
-            <td class="tableCell" scope="col">{{res.hands}}</td>
+            <td class="tableCell" scope="col">{% if res.hands %}O{% else %}X{% endif %}</td>
           </tr>
 
           {% endfor %}
@@ -183,23 +189,48 @@
     const tableContainer = document.querySelector(".tableContainer");
     tableContainer.scrollBy(0, event.deltaY);
   }
-      function checkboxGroup(currentCheckbox) {
-        const parentFieldset = currentCheckbox.closest('.stageSet'); 
-        const checkboxes = parentFieldset.querySelectorAll('.bonus');
+  
+  function checkboxGroup(currentCheckbox) {
+    const parentFieldset = currentCheckbox.closest('.stageSet'); 
+    const checkboxes = parentFieldset.querySelectorAll('.bonus');
           
-        for (let i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i] !== currentCheckbox) { 
-                checkboxes[i].checked = false;
-            }
-        }
-      }
+    for (let i = 0; i < checkboxes.length; i++) {
+       if (checkboxes[i] !== currentCheckbox) { 
+           checkboxes[i].checked = false;
+       }
+    }
+  }
 
-      function closeForm() {
-        const filter = document.querySelector(".normalhardForm");
-        if (filter.style.display !== "none") {
-          filter.style.display = "none";
-        } else {
-          filter.style.display = "block";
-        }
-      }
+function saveFormData() {
+  const stage1Value = document.getElementById('stage1').value;
+  const stage2Value = document.getElementById('stage2').value;
+  const stage3Value = document.getElementById('stage3').value;
+  const stage4Value = document.getElementById('stage4').value;
+
+  const formData = {
+    stage1: stage1Value,
+    stage2: stage2Value,
+    stage3: stage3Value,
+    stage4: stage4Value
+  };
+
+  localStorage.setItem('formData', JSON.stringify(formData));
+}
+
+function loadFormData() {
+  const savedData = localStorage.getItem('formData');
+  if (savedData) {
+    const formData = JSON.parse(savedData);
+    document.getElementById('stage1').value = formData.stage1;
+    document.getElementById('stage2').value = formData.stage2;
+    document.getElementById('stage3').value = formData.stage3;
+    document.getElementById('stage4').value = formData.stage4;
+  }
+}
+
+window.onload = function() {
+  loadFormData();
+};
+
 </script>
+<script src="{% static "js/cal.js" %}?ver=2" > </script>

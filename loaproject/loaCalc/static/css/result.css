@@ -190,7 +190,7 @@ input[type="checkbox"] {
   width: 13%;
 }
 
-.normalhardForm form fieldset {
+.normalhardForm fieldset {
   display: flex;
   flex-wrap: wrap;
 }
