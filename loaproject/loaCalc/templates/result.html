@@ -1,0 +1,210 @@
+{%load static%}
+<div role="tabpanel" id="tabpanel">
+  <div class="container">
+    <div class="area_raid">
+      <div class="character">
+        <img src="https://i.imgur.com/inTtFRH.png" alt="카멘" />
+        <span style="font-size: small">카멘</span>
+      </div>
+
+      <div class="character">
+        <img src="https://i.imgur.com/QXnwSY8.png" alt="일리아칸" />
+        <span style="font-size: small">일리아칸</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="normalhardForm">
+        {% comment %} <form action="#" name="difficulty" method="get" id="normalhardForm"> {% endcomment %}
+          <div>
+            <button class="closeBtn" onclick="  ();">X</button>
+          </div>
+          <div>
+          <fieldset class="totalField">
+            <legend>난이도 선택</legend>
+            <fieldset class="stageSet">
+              <legend>1관문</legend>
+              <select name="stage1" size="3" id="stage1" onchange="changeFn()" class="stages" >
+                <option value="normal">노말</option>
+                <option value="hard">하드</option>
+              </select>
+                <div>
+                  더보기 함<input
+                    type="checkBox"
+                    class="bonus"
+                    value="yes"
+                    onchange="checkboxGroup(this)"
+                    id="stage1Plus"
+                  />
+                </div>
+            </fieldset>
+            <fieldset class="stageSet">
+              <legend>2관문</legend>
+              <select name="stage2" size="3" id="stage2" class="stages">
+                <option value="normal">노말</option>
+                <option value="hard">하드</option>
+                <option value="dont">안함</option>
+              </select>
+              <div>
+                <div>
+                  더보기 함<input
+                    type="checkBox"
+                    class="bonus"
+                    value="yes"
+                    onchange="checkboxGroup(this)"
+                    id="stage2Plus"
+                  />
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="stageSet">
+              <legend>3관문</legend>
+              <select name="stage3" size="3" id="stage3" class="stages">
+                <option value="normal">노말</option>
+                <option value="hard">하드</option>
+                <option value="dont">안함</option>
+              </select>
+              <div>
+                <div>
+                  더보기 함<input
+                    type="checkBox"
+                    class="bonus"
+                    value="yes"
+                    onchange="checkboxGroup(this)"
+                    id="stage3Plus"
+                  />
+                </div>
+              </div>
+            </fieldset>
+            <fieldset class="stageSet"> 
+              <legend>4관문</legend>
+              <select name="stage4" size="3" id="stage4" class="stages">
+                <option value="hard">하드</option>
+                <option value="dont">안함</option>
+              </select>
+              <div>
+                <div>
+                  더보기 함<input
+                    type="checkBox"
+                    class="bonus"
+                    value="yes"
+                    onchange="checkboxGroup(this)"
+                    id="stage4Plus"
+                  />
+                </div>
+            </fieldset>
+            </div>
+            <div class="bonusGroup">
+                <button class="calculateBtn" type="submit" form="normalhardForm" id="collCalc">계산</button>
+            </div>
+          </div>
+          </fieldset>
+        {% comment %} </form> {% endcomment %}
+      </div>
+
+    <div class="quickSlot">
+      소지 재료 갯수 :
+      <input type="number" class="count_ingredient" min="0" id="inven" value="0" oninput="invencheck()" /> 손길 :
+      <input type="number" class="hand" max="5" min="0" id="hands" placeholder="0" oninput="hendscheck()" />
+      경매<input type="checkBox" class="hand" id="auction" /> 첫클보상<input
+        type="checkBox"
+        class="hand"
+        id="fstreward"
+      />
+    </div>
+    <div>
+      전체 더보기----
+      <input
+        type="checkBox"
+        class="bonus"
+        value="yes"
+        onclick="selectAllyes(this)"
+        id="allbonus"
+      />
+      <button class="filter" onclick="showFilter()">필터</button>
+    </div>
+    <div class="tableContainer" onwheel="handleWheel(event)">
+      <table class="tableRoot">
+        <thead class="tableHead">
+          <tr class="tableHead_root">
+            <th class="tableCell" scope="col">(n주 차)</th>
+            <th class="tableCell" scope="col" colspan="3">
+              (난이도), (더보기)
+            </th>
+            <th class="tableCell" scope="col">(경 매)</th>
+            <th class="tableCell" scope="col">(획득 재료)</th>
+            <th class="tableCell" scope="col">(누적 재료)</th>
+            <th class="tableCell" scope="col">(소모 골드)</th>
+          </tr>
+          <tr class="tableHead_root">
+            <th class="tableCell_under" scope="col"></th>
+            <th class="tableCell_under" scope="col">1관문(노말)</th>
+            <th class="tableCell_under" scope="col">2관문(노말)</th>
+            <th class="tableCell_under" scope="col">3관문(노말)</th>
+            <th class="tableCell_under" scope="col"></th>
+            <th class="tableCell_under" scope="col"></th>
+            <th class="tableCell_under" scope="col"></th>
+            <th class="tableCell_under" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody class="tableBody">
+          {% for res in result reversed %}
+          <tr class="tableBody_root">
+            <td class="tableCell" scope="col">{{res.주차}}주 차</td>
+            <td class="tableCell" scope="col">{{res.입장.0}}</td>
+            <td class="tableCell" scope="col">{{res.입장.1}}</td>
+            <td class="tableCell" scope="col">{{res.입장.2}}</td>
+            <td class="tableCell" scope="col">{{res.입장.3}}</td>
+            <td class="tableCell" scope="col">{{res.획득재료}}</td>
+            <td class="tableCell" scope="col">{{res.누적재료}}</td>
+            <td class="tableCell" scope="col">{{res.더보기골드}}</td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  function showFilter() {
+    const filter = document.querySelector(".normalhardForm");
+    if (filter.style.display !== "none") {
+      filter.style.display = "none";
+    } else {
+      filter.style.display = "block";
+    }
+  }
+
+  function selectAllyes(selectAll) {
+    const checkboxes = document.querySelectorAll(".bonus");
+    Array.from(checkboxes).forEach((checkbox) => {
+      checkbox.checked = selectAll.checked;
+    });
+  }
+
+  function handleWheel(event) {
+    const tableContainer = document.querySelector(".tableContainer");
+    tableContainer.scrollBy(0, event.deltaY);
+  }
+      function checkboxGroup(currentCheckbox) {
+        const parentFieldset = currentCheckbox.closest('.stageSet'); 
+        const checkboxes = parentFieldset.querySelectorAll('.bonus');
+          
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i] !== currentCheckbox) { 
+                checkboxes[i].checked = false;
+            }
+        }
+      }
+
+      function closeForm() {
+        const filter = document.querySelector(".normalhardForm");
+        if (filter.style.display !== "none") {
+          filter.style.display = "none";
+        } else {
+          filter.style.display = "block";
+        }
+      }
+</script>
+<script src="{% static "js/cal.js" %}?ver=2" > </script>
