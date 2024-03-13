@@ -1,4 +1,5 @@
 import json
+from django.contrib.sessions.backends.cached_db import SessionStore
 from django.views import View
 from django.shortcuts import render, redirect
 from .models import getAPIdata, checkExceedLv, calcMain
@@ -30,24 +31,29 @@ def calcPage(request):
         
         request.session['prof'] = prof
         request.session['eqmt'] = eqmt
-        request.session['raid'] = raid
-        request.session['opts'] = None
+        request.session['raid'] = raid  
         return redirect('/calc')
     else:
         prof = request.session['prof']
         eqmt = request.session['eqmt']
         raid = request.session['raid']
-        opts = request.session['opts']
-        result = calcMain(prof, eqmt, raid, opts)
+        if request.COOKIES.get('opts') is not None:
+            opts = json.loads(request.COOKIES.get('opts'))
+            opts['hands'] = int(opts['hands'])
+            opts['inven'] = int(opts['inven'])
+        else:
+            opts = None
+            
         context = {
             'prof' : prof,
             'eqmt' : eqmt,
             'raid' : raid,
             'opts' : opts,
-            'result' : result,
-            'materialImg': "https://i.imgur.com/LrRIH8K.png" if raid=='0' else "https://i.imgur.com/g0URllR.png" if raid=='1' else ''
         }
-
+        result = calcMain(prof, eqmt, raid, opts)
+        context['result'] = result
+        context['materialImg'] = "https://i.imgur.com/LrRIH8K.png" if raid=='0' else "https://i.imgur.com/g0URllR.png" if raid=='1' else ''
+        
     return render(request, "Calculator.html", context)
 
 def error400(request, exception):

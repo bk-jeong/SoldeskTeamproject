@@ -61,9 +61,9 @@ def calcRequire(eqmt, raid):
             trans[idx] = eqmt[idx]['exceed']
             if trans[idx] < target:
                 if trans[idx] > 2:
-                    require += (target - trans[idx - 1]) * 20
+                    require += (target - trans[idx]) * 20
                 else:
-                    require += (3 - trans[idx - 1]) * 15 + (target - 3) * 20
+                    require += (3 - trans[idx]) * 15 + (target - 3) * 20
     
     return require
 
@@ -79,7 +79,6 @@ def checkExceedLv(eqmt):
 
 def getDefaultOpts(prof, raid, require):
     mxlv = prof["maxlv"]  # 캐릭터 최대 달성 레벨 API data
-    require = require
     freward = False
     auction = False
     hands = 0
@@ -110,20 +109,6 @@ def getDefaultOpts(prof, raid, require):
         "require": require,
     }
     return opts
-
-
-def setUserOpts(**kargs):
-    opts = {
-        "entries": kargs[
-            "entries"
-        ],  # 관문 입장 정보 (0 : X , 1 : 노말_더보기ㅇ, 2 : 노말_더보기x, 3: 하드_더보기ㅇ, 4: 하드_더보기x)
-        "auction": kargs["auction"],  # 경매 참여 여부(일리아칸)
-        "fstreward": kargs["fstreward"],  # 첫 클리어 보상 여부
-        "hands": kargs["hands"],  # 아크투르스 손길 남은 횟수
-        "inven": kargs["inven"],  # 보유 중인 재료 개수
-    }
-    return opts
-
 
 def getRaidInfo(raid):
     info = {"reward": [], "spend": []}
@@ -241,24 +226,22 @@ def optimizeGate3(optmz):
 
 
 def calcMain(prof, eqmt, raid, opts):
-    requrie = calcRequire(eqmt, raid)
+    require = calcRequire(eqmt, raid)
     if opts == None:
-        opts = getDefaultOpts(prof, raid, requrie)
+        opts = getDefaultOpts(prof, raid, require)
     else:
-        opts = opts
+        opts['require'] = require - opts['inven']
     info = getRaidInfo(raid)
     wPr = getRewardPWeek(info, opts)
-
-    requrie -= (
+    require -= (
         opts["hands"] * wPr[-1]["tReward"] * 2
         + opts["hands"] * (5 if opts["auction"] and opts["entries"][2] != 0 else 0)
-        + 20
-        if opts["fstreward"]
-        else 0
+        + (20 if opts["fstreward"] else 0)
+        + opts['inven']
     )
-    if requrie >= 0:
+    if require >= 0:
         weeks = math.ceil(
-            requrie
+            require
             / (
                 wPr[-1]["tReward"]
                 - (
@@ -282,18 +265,18 @@ def calcMain(prof, eqmt, raid, opts):
                 if opts["entries"][3] != 0
                 else 0
             )
-            - requrie
+            - require
         )
     else:
-        while requrie < 0:
+        while require < 0:
             if (
-                requrie
+                require
                 + wPr[-1]["tReward"] * 2
                 + (5 if opts["auction"] and opts["entries"][2] != 0 else 0)
                 < 0
             ):
                 opts["hands"] -= 1
-                requrie += wPr[-1]["tReward"] * 2 + (
+                require += wPr[-1]["tReward"] * 2 + (
                     5 if opts["auction"] and opts["entries"][2] != 0 else 0
                 )
             else:
@@ -365,21 +348,20 @@ def calcMain(prof, eqmt, raid, opts):
             enterGate4 = False
 
     prevAdd = [i for i in opts["entries"]]
-
     for i in range(weeks, 0, -1):
         rewardAdd = []
-        for idx in marginAdd.keys():
+        for idx in range(len(marginAdd)):
             if prevAdd[idx] % 2 == 1:
                 if marginAdd[idx] == 0:
-                    if opts["entries"][idx] < 3:
+                    if opts["entries"][idx] == 1 or opts["entries"][idx] == 2:
                         opts["entries"][idx] = 1
-                    elif opts["entries"][idx] > 2:
+                    elif opts["entries"][idx] == 3 or opts["entries"][idx] == 4:
                         opts["entries"][idx] = 3
-                    rewardAdd.append( opts["entries"][idx])
+                    rewardAdd.append(opts["entries"][idx])
                 else:
-                    if opts["entries"][idx] < 3:
+                    if opts["entries"][idx] == 1 or opts["entries"][idx] == 2:
                         opts["entries"][idx] = 2
-                    elif opts["entries"][idx] > 2:
+                    elif opts["entries"][idx] == 3 or opts["entries"][idx] == 4:
                         opts["entries"][idx] = 4
                     marginAdd[idx] -= 1
                     rewardAdd.append( opts["entries"][idx])
@@ -393,12 +375,10 @@ def calcMain(prof, eqmt, raid, opts):
             else:
                 opts["entries"][3] = 0
                 enterGate4 = True
-
         wPr = getRewardPWeek(info, opts)
         accReward.append(
             wPr[-1]["tReward"]+ (5 if opts["auction"] and opts["entries"][2] != 0 else 0)
         )
-
         if i == weeks:
             res.append(
                 {

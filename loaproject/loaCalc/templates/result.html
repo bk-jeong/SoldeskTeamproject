@@ -13,99 +13,12 @@
       </div>
     </div>
 
-    <div>
-      <div class="normalhardForm">
-        {% comment %} <form action="#" name="difficulty" method="get" id="normalhardForm"> {% endcomment %}
-          <div>
-            <button class="closeBtn" onclick="showFilter();">X</button>
-          </div>
-          <div>
-          <fieldset class="totalField">
-            <legend>난이도 선택</legend>
-            <fieldset class="stageSet">
-              <legend>1관문</legend>
-              <select name="stage1" size="3" id="stage1" onchange="changeFn()" class="stages" >
-                <option value="normal">노말</option>
-                <option value="hard">하드</option>
-              </select>
-                <div>
-                  더보기 함<input
-                    type="checkBox"
-                    class="bonus"
-                    value="yes"
-                    onchange="checkboxGroup(this)"
-                    id="stage1Plus"
-                  />
-                </div>
-            </fieldset>
-            <fieldset class="stageSet">
-              <legend>2관문</legend>
-              <select name="stage2" size="3" id="stage2" class="stages">
-                <option value="normal">노말</option>
-                <option value="hard">하드</option>
-                <option value="dont">안함</option>
-              </select>
-              <div>
-                <div>
-                  더보기 함<input
-                    type="checkBox"
-                    class="bonus"
-                    value="yes"
-                    onchange="checkboxGroup(this)"
-                    id="stage2Plus"
-                  />
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="stageSet">
-              <legend>3관문</legend>
-              <select name="stage3" size="3" id="stage3" class="stages">
-                <option value="normal">노말</option>
-                <option value="hard">하드</option>
-                <option value="dont">안함</option>
-              </select>
-              <div>
-                <div>
-                  더보기 함<input
-                    type="checkBox"
-                    class="bonus"
-                    value="yes"
-                    onchange="checkboxGroup(this)"
-                    id="stage3Plus"
-                  />
-                </div>
-              </div>
-            </fieldset>
-            <fieldset class="stageSet"> 
-              <legend>4관문</legend>
-              <select name="stage4" size="3" id="stage4" class="stages">
-                <option value="hard">하드</option>
-                <option value="dont">안함</option>
-              </select>
-              <div>
-                <div>
-                  더보기 함<input
-                    type="checkBox"
-                    class="bonus"
-                    value="yes"
-                    onchange="checkboxGroup(this)"
-                    id="stage4Plus"
-                  />
-                </div>
-            </fieldset>
-            </div>
-            <div class="bonusGroup">
-                <button class="calculateBtn" type="submit" form="normalhardForm" id="collCalc">계산</button>
-            </div>
-          </div>
-          </fieldset>
-        {% comment %} </form> {% endcomment %}
-      </div>
+    
 
     <div class="quickSlot">
       소지 재료 갯수 :
       <input type="number" class="count_ingredient" min="0" id="inven" value="0" oninput="invencheck()" /> 손길 :
-      <input type="number" class="hand" max="5" min="0" id="hands" placeholder="0" oninput="hendscheck()" />
+      <input type="number" class="hand" max="5" min="0" id="hands" value="0" oninput="hendscheck()" />
       경매<input type="checkBox" class="hand" id="auction" /> 첫클보상<input
         type="checkBox"
         class="hand"
