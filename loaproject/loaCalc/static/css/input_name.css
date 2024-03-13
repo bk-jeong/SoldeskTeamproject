@@ -6,7 +6,7 @@
   margin-top: 10%;
 }
 
-.pageName {
+.pageName h1 {
   height: 400px;
   text-align: center;
   display: flex;
@@ -17,6 +17,18 @@
   background-color: teal;
   position: relative;
   z-index: -1;
+}
+
+.pageName h3 {
+  text-align: center;
+  margin-top: -100px;
+  font-size: 15px;
+}
+
+.direction {
+  text-align: center;
+  padding-top: 100px;
+  font-size: 15px;
 }
 
 #charName {
@@ -108,10 +120,4 @@ button {
 
 .character span {
   margin-top: 5px;
-}
-
-.direction {
-  text-align: center;
-  padding-top: 45px;
-  font-size: 15px;
 }
