@@ -1,21 +1,26 @@
 {%load static%}
 <div role="tabpanel" id="tabpanel">
   <div class="container">
-    <div class="area_raid">
-      <div class="character">
-        <img src="https://i.imgur.com/inTtFRH.png" alt="카멘" />
-        <span style="font-size: small">카멘</span>
-      </div>
+    <div class="area_raid_result">
+          <div class="character">
+            <input type="radio" id="kamen_info" name="raidName" value="1" />
+            <label for="kamen_info" id="kamen_info_label">
+              <img src="https://i.imgur.com/inTtFRH.png" alt="카멘" draggable="false" />
+            </label>
+            <span>카멘</span>
+          </div>
 
-      <div class="character">
-        <img src="https://i.imgur.com/QXnwSY8.png" alt="일리아칸" />
-        <span style="font-size: small">일리아칸</span>
-      </div>
+          <div class="character">
+            <input type="radio" id="illiakan_info" name="raidName" value="0" />
+            <label for="illiakan_info" id="illiakan_info_label">
+              <img src="https://i.imgur.com/QXnwSY8.png" alt="일리아칸" draggable="false" />
+            </label>
+            <span>일리아칸</span>
+          </div>
     </div>
 
     <div>
       <div class="normalhardForm">
-        {% comment %} <form action="#" name="difficulty" method="get" id="normalhardForm"> {% endcomment %}
           <div>
             <button class="closeBtn" onclick="showFilter();">X</button>
           </div>
@@ -99,21 +104,20 @@
             </div>
           </div>
           </fieldset>
-        {% comment %} </form> {% endcomment %}
       </div>
 
     <div class="quickSlot">
       소지 재료 갯수 :
       <input type="number" class="count_ingredient" min="0" id="inven" value="0" oninput="invencheck()" /> 손길 :
       <input type="number" class="hand" max="5" min="0" id="hands" placeholder="0" oninput="hendscheck()" />
-      경매<input type="checkBox" class="hand" id="auction" /> 첫클보상<input
+      경매 참여<input type="checkBox" class="hand" id="auction" /> 첫클보상<input
         type="checkBox"
         class="hand"
         id="fstreward"
       />
     </div>
     <div>
-      전체 더보기----
+      전체 더보기 적용
       <input
         type="checkBox"
         class="bonus"
@@ -127,7 +131,7 @@
       <table class="tableRoot">
         <thead class="tableHead">
           <tr class="tableHead_root">
-            <th class="tableCell" scope="col">(주 차)</th>
+            <th class="tableCell" scope="col">(n주차)</th>
             {% for i in result.0.enter %}
               <th class="tableCell_under" scope="col">{{forloop.counter}} 관문/더보기</th>
             {% endfor %}
@@ -141,7 +145,7 @@
         <tbody class="tableBody">
           {% for res in result reversed %}
           <tr class="tableBody_root">
-            <td class="tableCell" scope="col">{{res.week}}주</td>
+            <td class="tableCell" scope="col">{{res.week}}주차</td>
             {% for stg in res.enter %}
               {% if stg == 1 %}
                 <td class="tableCell" scope="col">노말 / O</td>
@@ -156,8 +160,8 @@
               {% endif %}
             {% endfor%}
             <td class="tableCell" scope="col">{% if res.auction %}O{% else %}X{% endif %}</td>
-            <td class="tableCell" scope="col"><img src={{materialImg}}>x{{res.material}}</td>
-            <td class="tableCell" scope="col"><img src={{materialImg}}>x{{res.accum}}</td>
+            <td class="tableCell" scope="col"><img src={{materialImg}}><span style="line-height:1.5;">x{{res.material}}</span></td>
+            <td class="tableCell" scope="col"><img src={{materialImg}}><span>x{{res.accum}}</span></td>
             <td class="tableCell" scope="col">{{res.gold}}<img src="https://i.imgur.com/2SWmGw4.png" alt="골드"></td>
             <td class="tableCell" scope="col">{% if res.hands %}O{% else %}X{% endif %}</td>
           </tr>
@@ -227,6 +231,8 @@ function loadFormData() {
     document.getElementById('stage4').value = formData.stage4;
   }
 }
+
+
 
 window.onload = function() {
   loadFormData();

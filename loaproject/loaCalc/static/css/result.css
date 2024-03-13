@@ -18,7 +18,7 @@ body {
   flex-direction: column;
 }
 
-.area_raid {
+.area_raid_result {
   display: flex;
   align-items: center;
 }

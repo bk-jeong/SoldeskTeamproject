@@ -16,11 +16,12 @@
   transform: translate(-50%, -50%);
   margin: 0;
   padding: 0;
+  font-size: 80px;
 }
 
 .manutitle h2 {
   position: absolute;
-  top: calc(50% + 50px);
+  top: calc(50% + 70px);
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0;

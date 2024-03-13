@@ -45,6 +45,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: -100px;
 }
 
 .character {
@@ -107,4 +108,10 @@ button {
 
 .character span {
   margin-top: 5px;
+}
+
+.direction {
+  text-align: center;
+  padding-top: 45px;
+  font-size: 15px;
 }

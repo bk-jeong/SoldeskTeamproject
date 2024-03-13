@@ -61,9 +61,9 @@ def calcRequire(eqmt, raid):
             trans[idx] = eqmt[idx]['exceed']
             if trans[idx] < target:
                 if trans[idx] > 2:
-                    require += (target - trans[idx - 1]) * 20
+                    require += (target - trans[idx]) * 20
                 else:
-                    require += (3 - trans[idx - 1]) * 15 + (target - 3) * 20
+                    require += (3 - trans[idx]) * 15 + (target - 3) * 20
     
     return require
 
