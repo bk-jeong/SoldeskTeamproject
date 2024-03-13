@@ -83,10 +83,16 @@
                     id="stage4Plus"
                   />
                 </div>
+                
             </fieldset>
-            </div>
-            <div class="bonusGroup">
-                <button class="calculateBtn" type="submit" form="normalhardForm" id="collCalc">계산</button>
+            전체 더보기 적용
+            <input
+              type="checkBox"
+              class="bonus"
+              value="yes"
+              onclick="selectAllyes(this)"
+              id="allbonus"
+            />
             </div>
           </div>
           </fieldset>
@@ -101,18 +107,10 @@
         class="hand"
         id="fstreward"
       />
-    </div>
-    <div>
-      전체 더보기 적용
-      <input
-        type="checkBox"
-        class="bonus"
-        value="yes"
-        onclick="selectAllyes(this)"
-        id="allbonus"
-      />
       <button class="filter" onclick="showFilter()">필터</button>
+      <button class="calculateBtn" type="submit" form="normalhardForm" id="collCalc">계산</button>
     </div>
+
     <div class="tableContainer" onwheel="handleWheel(event)">
       <table class="tableRoot">
         <thead class="tableHead">

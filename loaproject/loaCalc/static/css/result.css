@@ -140,12 +140,16 @@ input[type="checkbox"] {
 }
 
 .calculateBtn {
-  background-color: blanchedalmond;
-  color: black;
-  padding: 10px 20px;
-  border: solid 1px black;
+  background-color: orchid;
+  color: white;
+  padding: 4px 16px;
+  border: solid 0px black;
   border-radius: 4px;
   float: right;
+}
+
+.calculateBtn:hover {
+  background-color: darksalmon;
 }
 
 .closeBtn {
